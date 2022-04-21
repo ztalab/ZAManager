@@ -1,0 +1,31 @@
+#APP ENV
+app:
+  env: "dev" # dev,release
+  sysname: "ZAManager"
+  port: 80
+
+#Mysql
+mysql:
+  dbname: "zta"
+  prefix: "zta_"
+  pool:
+    pool-min-cap: 10
+    pool-ex-cap: 5
+    pool-max-cap: 40
+    pool-idle-timeout: 3600
+    pool-wait-count: 1000
+    pool-wai-timeout: 30
+  write:
+    host: "192.168.2.80"
+    port: 3306
+    user: "root"
+    password: "123456"
+
+#CA
+ca:
+  base-url: "http://192.168.2.80:8382"
+  sign-url: "https://192.168.2.80:8381"
+  ocsp-url: "http://192.168.2.80:8383"
+  version: "/api/v1"
+  sentinel-token: "1fb4d8144367a1cdc59500a2e81f7902a4cd5da4a1f1b2211eff42202b5b70e8"
+  auth-key: "0739a645a7d6601d9d45f6b237c4edeadad904f2fce53625dfdd541ec4fc8134"
