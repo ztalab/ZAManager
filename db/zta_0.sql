@@ -1,10 +1,12 @@
+-- +migrate Up
+
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
 -- Table structure for zta_client
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_client` (
+CREATE TABLE IF NOT EXISTS `zta_client` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `server_id` bigint(20) unsigned NOT NULL DEFAULT '0',
@@ -27,7 +29,7 @@ CREATE TABLE IF NO EXISTS `zta_client` (
 -- ----------------------------
 -- Table structure for zta_oauth2
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_oauth2` (
+CREATE TABLE IF NOT EXISTS `zta_oauth2` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `company` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'company',
   `client_id` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'client_id',
@@ -47,7 +49,7 @@ CREATE TABLE IF NO EXISTS `zta_oauth2` (
 -- ----------------------------
 -- Table structure for zta_relay
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_relay` (
+CREATE TABLE IF NOT EXISTS `zta_relay` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
@@ -67,7 +69,7 @@ CREATE TABLE IF NO EXISTS `zta_relay` (
 -- ----------------------------
 -- Table structure for zta_resource
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_resource` (
+CREATE TABLE IF NOT EXISTS `zta_resource` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
@@ -85,7 +87,7 @@ CREATE TABLE IF NO EXISTS `zta_resource` (
 -- ----------------------------
 -- Table structure for zta_server
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_server` (
+CREATE TABLE IF NOT EXISTS `zta_server` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `resource_id` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'resource id , split by ","',
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
@@ -106,7 +108,7 @@ CREATE TABLE IF NO EXISTS `zta_server` (
 -- ----------------------------
 -- Table structure for zta_user
 -- ----------------------------
-CREATE TABLE IF NO EXISTS `zta_user` (
+CREATE TABLE IF NOT EXISTS `zta_user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'email',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
@@ -119,3 +121,4 @@ CREATE TABLE IF NO EXISTS `zta_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='user';
 
 SET FOREIGN_KEY_CHECKS = 1;
+-- +migrate Down
