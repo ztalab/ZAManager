@@ -12,8 +12,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetResource(c *gin.Context, param mparam.GetResource) (code int, ResourceList mapi.ResourceList) {
-	count, list, err := mysql.NewResource(c).GetResource(param)
+func ResourceList(c *gin.Context, param mparam.ResourceList) (code int, ResourceList mapi.ResourceList) {
+	count, list, err := mysql.NewResource(c).ResourceList(param)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 		return
@@ -27,11 +27,12 @@ func GetResource(c *gin.Context, param mparam.GetResource) (code int, ResourceLi
 
 func AddResource(c *gin.Context, param *mparam.AddResource) (code int, data *mmysql.Resource) {
 	data = &mmysql.Resource{
-		Name: param.Name,
-		UUID: uuid.NewString(),
-		Type: param.Type,
-		Host: param.Host,
-		Port: param.Port,
+		Name:     param.Name,
+		UUID:     uuid.NewString(),
+		UserUUID: param.UserUUID,
+		Type:     param.Type,
+		Host:     param.Host,
+		Port:     param.Port,
 	}
 	err := mysql.NewResource(c).AddResource(data)
 	if err != nil {
@@ -62,8 +63,8 @@ func EditResource(c *gin.Context, param *mparam.EditResource) (code int) {
 	return
 }
 
-func DelResource(c *gin.Context, id uint64) (code int) {
-	err := mysql.NewResource(c).DelResource(id)
+func DelResource(c *gin.Context, id uint64, userUUID string) (code int) {
+	err := mysql.NewResource(c).DelResource(id, userUUID)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 	}

@@ -24,7 +24,7 @@ func NewServer(c *gin.Context) *Server {
 	}
 }
 
-func (p *Server) GetServer(param mparam.GetServer) (
+func (p *Server) ServerList(param mparam.ServerList) (
 	total int64, list []mmysql.Server, err error) {
 	orm := p.GetOrm().DB
 	query := orm.Table(p.TableName)
@@ -45,7 +45,7 @@ func (p *Server) GetServer(param mparam.GetServer) (
 		err = nil
 	}
 	if err != nil {
-		logger.Errorf(p.c, "GetServer err : %v", err)
+		logger.Errorf(p.c, "ServerList err : %v", err)
 	}
 	return
 }

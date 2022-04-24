@@ -12,20 +12,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Summary GetRelay
+// @Summary RelayList
 // @Description 获取ZTA的relay
 // @Tags ZTA
 // @Produce  json
 // @Success 200 {object} controller.Res
 // @Router /access/relay [get]
-func GetRelay(c *gin.Context) {
-	param := mparam.GetRelay{}
+func RelayList(c *gin.Context) {
+	param := mparam.RelayList{}
 	b, code := controller.BindParams(c, &param)
 	if !b {
 		response.UtilResponseReturnJsonFailed(c, code)
 		return
 	}
-	code, data := service.GetRelay(c, param)
+	code, data := service.RelayList(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
 

@@ -25,7 +25,7 @@ func NewResource(c *gin.Context) *Resource {
 	}
 }
 
-func (p *Resource) GetResource(param mparam.GetResource) (
+func (p *Resource) ResourceList(param mparam.ResourceList) (
 	total int64, list []mmysql.Resource, err error) {
 	orm := p.GetOrm().DB
 	query := orm.Table(p.TableName)
@@ -34,6 +34,9 @@ func (p *Resource) GetResource(param mparam.GetResource) (
 	}
 	if len(param.Type) > 0 {
 		query = query.Where("`type` = ?", param.Type)
+	}
+	if len(param.UserUUID) > 0 {
+		query = query.Where("`user_uuid` = ?", param.UserUUID)
 	}
 	err = query.Model(&list).Count(&total).Error
 	if total > 0 {
@@ -46,13 +49,11 @@ func (p *Resource) GetResource(param mparam.GetResource) (
 		err = nil
 	}
 	if err != nil {
-		logger.Errorf(p.c, "GetResource err : %v", err)
+		logger.Errorf(p.c, "ResourceList err : %v", err)
 	}
 	return
 }
 
-// GetResourceByIDSli
-// TODO 此处接收的参数是字符串切片，实际应该是整型切片，后面可以借助1.18的特性使用泛型
 func (p *Resource) GetResourceByIDSli(ids []string) (list []mmysql.Resource, err error) {
 	orm := p.GetOrm()
 	err = orm.Table(p.TableName).Where("id in ?", ids).Find(&list).Error
@@ -95,9 +96,9 @@ func (p *Resource) EditResource(data mmysql.Resource) (err error) {
 	return
 }
 
-func (p *Resource) DelResource(id uint64) (err error) {
+func (p *Resource) DelResource(id uint64, userUUID string) (err error) {
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Where("id = ?", id).Delete(&mmysql.Resource{}).Error
+	err = orm.Table(p.TableName).Where("id = ? and user_uuid = ?", id, userUUID).Delete(&mmysql.Resource{}).Error
 	if err != nil {
 		logger.Errorf(p.c, "DelResource err : %v", err)
 	}

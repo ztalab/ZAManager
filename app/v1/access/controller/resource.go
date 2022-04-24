@@ -14,20 +14,21 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Summary GetResource
+// @Summary ResourceList
 // @Description 获取ZTA的resource
 // @Tags ZTA
 // @Produce  json
 // @Success 200 {object} controller.Res
 // @Router /access/resource [get]
-func GetResource(c *gin.Context) {
-	param := mparam.GetResource{}
+func ResourceList(c *gin.Context) {
+	param := mparam.ResourceList{}
 	b, code := controller.BindParams(c, &param)
 	if !b {
 		response.UtilResponseReturnJsonFailed(c, code)
 		return
 	}
-	code, data := service.GetResource(c, param)
+	param.UserUUID = util.User(c).UUID
+	code, data := service.ResourceList(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
 
@@ -60,6 +61,7 @@ func AddResource(c *gin.Context) {
 			}
 		}
 	}
+	param.UserUUID = util.User(c).UUID
 	code, data := service.AddResource(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
@@ -93,6 +95,7 @@ func EditResource(c *gin.Context) {
 			}
 		}
 	}
+	param.UserUUID = util.User(c).UUID
 	code = service.EditResource(c, param)
 	response.UtilResponseReturnJson(c, code, nil)
 }
@@ -111,6 +114,6 @@ func DelResource(c *gin.Context) {
 		response.UtilResponseReturnJsonFailed(c, pconst.CODE_COMMON_PARAMS_INCOMPLETE)
 		return
 	}
-	code := service.DelResource(c, uint64(idInt))
+	code := service.DelResource(c, uint64(idInt), util.User(c).UUID)
 	response.UtilResponseReturnJson(c, code, nil)
 }

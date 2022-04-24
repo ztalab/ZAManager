@@ -1,9 +1,14 @@
 package middle
 
 import (
+	"encoding/json"
 	"net/http"
 
-	"github.com/gin-contrib/sessions"
+	"github.com/ztalab/ZAManager/app/v1/user/model/mmysql"
+
+	"github.com/ztalab/ZAManager/pkg/confer"
+
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,7 +19,16 @@ func Oauth2() gin.HandlerFunc {
 			ctx.Set("user", user)
 			ctx.Next()
 		} else {
-			ctx.AbortWithStatus(http.StatusUnauthorized)
+			if confer.ConfigEnvGet() == "dev" {
+				userBytes, _ := json.Marshal(&mmysql.User{
+					Email: "nisainan@github.com",
+					UUID:  "3933d404-2025-4851-bfe3-1c07c5280c72",
+				})
+				ctx.Set("user", userBytes)
+				ctx.Next()
+			} else {
+				ctx.AbortWithStatus(http.StatusUnauthorized)
+			}
 		}
 	}
 }

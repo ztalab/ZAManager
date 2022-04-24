@@ -17,8 +17,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetClient(c *gin.Context, param mparam.GetClient) (code int, ClientList mapi.ClientList) {
-	count, list, err := mysql.NewClient(c).GetClient(param)
+func ClientList(c *gin.Context, param mparam.ClientList) (code int, ClientList mapi.ClientList) {
+	count, list, err := mysql.NewClient(c).ClientList(param)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 		return
@@ -40,7 +40,7 @@ func AddClient(c *gin.Context, param *mparam.AddClient) (code int, data *mmysql.
 		return pconst.CODE_COMMON_DATA_NOT_EXIST, nil
 	}
 	// 查询relay
-	total, relayList, err := mysql.NewRelay(c).GetRelay(mparam.GetRelay{
+	total, relayList, err := mysql.NewRelay(c).RelayList(mparam.RelayList{
 		Paginate: mdb.Paginate{
 			Page:     1,
 			LimitNum: 999,

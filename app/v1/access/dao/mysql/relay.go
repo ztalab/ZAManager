@@ -24,7 +24,7 @@ func NewRelay(c *gin.Context) *Relay {
 	}
 }
 
-func (p *Relay) GetRelay(param mparam.GetRelay) (
+func (p *Relay) RelayList(param mparam.RelayList) (
 	total int64, list []mmysql.Relay, err error) {
 	orm := p.GetOrm().DB
 	query := orm.Table(p.TableName)
@@ -42,7 +42,7 @@ func (p *Relay) GetRelay(param mparam.GetRelay) (
 		err = nil
 	}
 	if err != nil {
-		logger.Errorf(p.c, "GetRelay err : %v", err)
+		logger.Errorf(p.c, "RelayList err : %v", err)
 	}
 	return
 }

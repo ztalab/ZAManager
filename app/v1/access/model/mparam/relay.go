@@ -2,7 +2,7 @@ package mparam
 
 import "github.com/ztalab/ZAManager/app/base/mdb"
 
-type GetRelay struct {
+type RelayList struct {
 	mdb.Paginate
 	Name string `json:"name" form:"name"`
 }

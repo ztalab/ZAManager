@@ -1,8 +1,11 @@
 package util
 
 import (
+	"encoding/json"
 	"net"
 	"regexp"
+
+	"github.com/ztalab/ZAManager/app/v1/user/model/mmysql"
 
 	"github.com/gin-gonic/gin"
 )
@@ -21,5 +24,11 @@ func IsCIDR(cidr string) bool {
 
 func GetCookieFromGin(ctx *gin.Context, key string) (value string) {
 	value, _ = ctx.Cookie(key)
+	return
+}
+
+func User(c *gin.Context) (user *mmysql.User) {
+	userBytes := c.MustGet("user")
+	json.Unmarshal(userBytes.([]byte), &user)
 	return
 }

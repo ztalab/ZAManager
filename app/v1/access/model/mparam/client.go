@@ -5,7 +5,7 @@ import (
 	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
 )
 
-type GetClient struct {
+type ClientList struct {
 	mdb.Paginate
 	Name string `json:"name" form:"name"`
 }

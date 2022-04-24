@@ -12,20 +12,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Summary GetClient
+// @Summary ClientList
 // @Description 获取ZTA的client
 // @Tags ZTA
 // @Produce  json
 // @Success 200 {object} controller.Res
 // @Router /access/client [get]
-func GetClient(c *gin.Context) {
-	param := mparam.GetClient{}
+func ClientList(c *gin.Context) {
+	param := mparam.ClientList{}
 	b, code := controller.BindParams(c, &param)
 	if !b {
 		response.UtilResponseReturnJsonFailed(c, code)
 		return
 	}
-	code, data := service.GetClient(c, param)
+	code, data := service.ClientList(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
 

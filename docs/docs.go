@@ -32,7 +32,7 @@ var doc = `{
                 "tags": [
                     "ZTA"
                 ],
-                "summary": "GetClient",
+                "summary": "ClientList",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -145,7 +145,7 @@ var doc = `{
                 "tags": [
                     "ZTA"
                 ],
-                "summary": "GetRelay",
+                "summary": "RelayList",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -258,7 +258,7 @@ var doc = `{
                 "tags": [
                     "ZTA"
                 ],
-                "summary": "GetResource",
+                "summary": "ResourceList",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -371,7 +371,7 @@ var doc = `{
                 "tags": [
                     "ZTA"
                 ],
-                "summary": "GetServer",
+                "summary": "ServerList",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -474,6 +474,119 @@ var doc = `{
                     }
                 }
             }
+        },
+        "/sysytem/oauth2": {
+            "get": {
+                "description": "获取ZTA的Oauth2",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA Oauth2"
+                ],
+                "summary": "ListOauth2",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "修改ZTA的Oauth2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA Oauth2"
+                ],
+                "summary": "EditOauth2",
+                "parameters": [
+                    {
+                        "description": "修改ZTA的Oauth2",
+                        "name": "Oauth2",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mparam.EditOauth2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "新增ZTA的Oauth2",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA Oauth2"
+                ],
+                "summary": "AddOauth2",
+                "parameters": [
+                    {
+                        "description": "新增ZTA的Oauth2",
+                        "name": "Oauth2",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/mparam.AddOauth2"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/sysytem/oauth2/{id}": {
+            "delete": {
+                "description": "删除ZTA的Oauth2",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA Oauth2"
+                ],
+                "summary": "DelOauth2",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "主键ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -535,6 +648,49 @@ var doc = `{
                 }
             }
         },
+        "mparam.AddOauth2": {
+            "type": "object",
+            "required": [
+                "auth_url",
+                "client_id",
+                "client_secret",
+                "name",
+                "redirect_url",
+                "scopes",
+                "token_url"
+            ],
+            "properties": {
+                "auth_url": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "client_secret": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string",
+                    "enum": [
+                        "github",
+                        "facebook",
+                        "google"
+                    ]
+                },
+                "redirect_url": {
+                    "type": "string"
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "token_url": {
+                    "type": "string"
+                }
+            }
+        },
         "mparam.AddRelay": {
             "type": "object",
             "required": [
@@ -586,6 +742,9 @@ var doc = `{
                         "cidr",
                         "dns"
                     ]
+                },
+                "user_uuid": {
+                    "type": "string"
                 }
             }
         },
@@ -651,6 +810,53 @@ var doc = `{
                 }
             }
         },
+        "mparam.EditOauth2": {
+            "type": "object",
+            "required": [
+                "auth_url",
+                "client_id",
+                "client_secret",
+                "id",
+                "name",
+                "redirect_url",
+                "scopes",
+                "token_url"
+            ],
+            "properties": {
+                "auth_url": {
+                    "type": "string"
+                },
+                "client_id": {
+                    "type": "string"
+                },
+                "client_secret": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string",
+                    "enum": [
+                        "github",
+                        "facebook",
+                        "google"
+                    ]
+                },
+                "redirect_url": {
+                    "type": "string"
+                },
+                "scopes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "token_url": {
+                    "type": "string"
+                }
+            }
+        },
         "mparam.EditRelay": {
             "type": "object",
             "required": [
@@ -710,6 +916,9 @@ var doc = `{
                         "cidr",
                         "dns"
                     ]
+                },
+                "user_uuid": {
+                    "type": "string"
                 }
             }
         },
