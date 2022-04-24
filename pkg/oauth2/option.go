@@ -1,7 +1,7 @@
 package oauth2
 
 import (
-	"github.com/gin-contrib/sessions"
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/rs/xid"
 	"golang.org/x/oauth2"

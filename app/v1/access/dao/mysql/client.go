@@ -24,7 +24,7 @@ func NewClient(c *gin.Context) *Client {
 	}
 }
 
-func (p *Client) GetClient(param mparam.GetClient) (
+func (p *Client) ClientList(param mparam.ClientList) (
 	total int64, list []mmysql.Client, err error) {
 	orm := p.GetOrm().DB
 	query := orm.Table(p.TableName)
@@ -42,7 +42,7 @@ func (p *Client) GetClient(param mparam.GetClient) (
 		err = nil
 	}
 	if err != nil {
-		logger.Errorf(p.c, "GetClient err : %v", err)
+		logger.Errorf(p.c, "ClientList err : %v", err)
 	}
 	return
 }

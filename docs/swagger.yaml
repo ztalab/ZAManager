@@ -40,6 +40,37 @@ definitions:
     - server_id
     - target
     type: object
+  mparam.AddOauth2:
+    properties:
+      auth_url:
+        type: string
+      client_id:
+        type: string
+      client_secret:
+        type: string
+      name:
+        enum:
+        - github
+        - facebook
+        - google
+        type: string
+      redirect_url:
+        type: string
+      scopes:
+        items:
+          type: string
+        type: array
+      token_url:
+        type: string
+    required:
+    - auth_url
+    - client_id
+    - client_secret
+    - name
+    - redirect_url
+    - scopes
+    - token_url
+    type: object
   mparam.AddRelay:
     properties:
       host:
@@ -73,6 +104,8 @@ definitions:
         enum:
         - cidr
         - dns
+        type: string
+      user_uuid:
         type: string
     required:
     - host
@@ -124,6 +157,40 @@ definitions:
     - server_id
     - target
     type: object
+  mparam.EditOauth2:
+    properties:
+      auth_url:
+        type: string
+      client_id:
+        type: string
+      client_secret:
+        type: string
+      id:
+        type: integer
+      name:
+        enum:
+        - github
+        - facebook
+        - google
+        type: string
+      redirect_url:
+        type: string
+      scopes:
+        items:
+          type: string
+        type: array
+      token_url:
+        type: string
+    required:
+    - auth_url
+    - client_id
+    - client_secret
+    - id
+    - name
+    - redirect_url
+    - scopes
+    - token_url
+    type: object
   mparam.EditRelay:
     properties:
       host:
@@ -162,6 +229,8 @@ definitions:
         enum:
         - cidr
         - dns
+        type: string
+      user_uuid:
         type: string
     required:
     - host
@@ -210,7 +279,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Res'
-      summary: GetClient
+      summary: ClientList
       tags:
       - ZTA
     post:
@@ -284,7 +353,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Res'
-      summary: GetRelay
+      summary: RelayList
       tags:
       - ZTA
     post:
@@ -358,7 +427,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Res'
-      summary: GetResource
+      summary: ResourceList
       tags:
       - ZTA
     post:
@@ -432,7 +501,7 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Res'
-      summary: GetServer
+      summary: ServerList
       tags:
       - ZTA
     post:
@@ -496,4 +565,78 @@ paths:
       summary: DelServer
       tags:
       - ZTA
+  /sysytem/oauth2:
+    get:
+      description: 获取ZTA的Oauth2
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: ListOauth2
+      tags:
+      - ZTA Oauth2
+    post:
+      consumes:
+      - application/json
+      description: 新增ZTA的Oauth2
+      parameters:
+      - description: 新增ZTA的Oauth2
+        in: body
+        name: Oauth2
+        required: true
+        schema:
+          $ref: '#/definitions/mparam.AddOauth2'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: AddOauth2
+      tags:
+      - ZTA Oauth2
+    put:
+      consumes:
+      - application/json
+      description: 修改ZTA的Oauth2
+      parameters:
+      - description: 修改ZTA的Oauth2
+        in: body
+        name: Oauth2
+        required: true
+        schema:
+          $ref: '#/definitions/mparam.EditOauth2'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: EditOauth2
+      tags:
+      - ZTA Oauth2
+  /sysytem/oauth2/{id}:
+    delete:
+      description: 删除ZTA的Oauth2
+      parameters:
+      - description: 主键ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: DelOauth2
+      tags:
+      - ZTA Oauth2
 swagger: "2.0"

@@ -15,8 +15,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetRelay(c *gin.Context, param mparam.GetRelay) (code int, RelayList mapi.RelayList) {
-	count, list, err := mysql.NewRelay(c).GetRelay(param)
+func RelayList(c *gin.Context, param mparam.RelayList) (code int, RelayList mapi.RelayList) {
+	count, list, err := mysql.NewRelay(c).RelayList(param)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 		return

@@ -5,9 +5,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/ztalab/ZAManager/pkg/confer"
-
 	"github.com/gin-gonic/gin"
+	"github.com/ztalab/ZAManager/pkg/confer"
 )
 
 func Welcome(c *gin.Context) {

@@ -28,7 +28,7 @@ func ListOauth2(c *gin.Context) {
 // @Tags ZTA Oauth2
 // @Accept  json
 // @Produce  json
-// @Param Oauth2 body mmysql.Oauth2 true "新增ZTA的Oauth2"
+// @Param Oauth2 body mparam.AddOauth2 true "新增ZTA的Oauth2"
 // @Success 200 {object} controller.Res
 // @Router /sysytem/oauth2 [post]
 func AddOauth2(c *gin.Context) {

@@ -16,8 +16,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func GetServer(c *gin.Context, param mparam.GetServer) (code int, ServerList mapi.ServerList) {
-	count, list, err := mysql.NewServer(c).GetServer(param)
+func ServerList(c *gin.Context, param mparam.ServerList) (code int, ServerList mapi.ServerList) {
+	count, list, err := mysql.NewServer(c).ServerList(param)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 		return

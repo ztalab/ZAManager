@@ -2,7 +2,7 @@ package mparam
 
 import "github.com/ztalab/ZAManager/app/base/mdb"
 
-type GetServer struct {
+type ServerList struct {
 	mdb.Paginate
 	Name       string `json:"name" form:"name"`
 	ResourceID int    `json:"resource_id" form:"resource_id"`

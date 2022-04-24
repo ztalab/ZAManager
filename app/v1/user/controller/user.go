@@ -1,16 +1,17 @@
 package controller
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
 
-	"github.com/gin-contrib/sessions"
-
-	"github.com/ztalab/ZAManager/pconst"
-
+	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/ztalab/ZAManager/app/v1/user/service"
+	"github.com/ztalab/ZAManager/pconst"
+	"github.com/ztalab/ZAManager/pkg/response"
+	"github.com/ztalab/ZAManager/pkg/util"
 )
 
 func Login(c *gin.Context) {
@@ -24,7 +25,7 @@ func Login(c *gin.Context) {
 }
 
 func UserDetail(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"Hello": "from private", "user": c.GetString("user")})
+	response.UtilResponseReturnJson(c, pconst.CODE_ERROR_OK, util.User(c))
 }
 
 func Oauth2Callback(c *gin.Context) {
@@ -39,7 +40,8 @@ func Oauth2Callback(c *gin.Context) {
 	}
 	user, code := service.Oauth2Callback(c, c.Param("company"), c.Query("code"))
 	if code == pconst.CODE_ERROR_OK {
-		session.Set("user", user)
+		userBytes, _ := json.Marshal(user)
+		session.Set("user", userBytes)
 		session.Save()
 		c.Redirect(http.StatusSeeOther, "/")
 	}

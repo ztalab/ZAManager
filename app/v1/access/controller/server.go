@@ -12,20 +12,20 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// @Summary GetServer
+// @Summary ServerList
 // @Description 获取ZTA的server
 // @Tags ZTA
 // @Produce  json
 // @Success 200 {object} controller.Res
 // @Router /access/server [get]
-func GetServer(c *gin.Context) {
-	param := mparam.GetServer{}
+func ServerList(c *gin.Context) {
+	param := mparam.ServerList{}
 	b, code := controller.BindParams(c, &param)
 	if !b {
 		response.UtilResponseReturnJsonFailed(c, code)
 		return
 	}
-	code, data := service.GetServer(c, param)
+	code, data := service.ServerList(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
 
