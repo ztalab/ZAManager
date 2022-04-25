@@ -22,7 +22,7 @@ func NewUser(c *gin.Context) *User {
 
 func (p *User) FirstOrCreateUser(data *mmysql.User) (err error) {
 	orm := p.GetOrm()
-	err = orm.Where(mmysql.User{Email: data.Email}).Attrs(mmysql.User{UUID: uuid.NewString()}).FirstOrCreate(&data).Error
+	err = orm.Where(mmysql.User{Email: data.Email}).Attrs(mmysql.User{UUID: uuid.NewString(), AvatarUrl: data.AvatarUrl}).FirstOrCreate(&data).Error
 	if err != nil {
 		logger.Errorf(p.c, "FirstOrCreateUser err : %v", err)
 	}
