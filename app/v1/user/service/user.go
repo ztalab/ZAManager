@@ -61,7 +61,7 @@ func Oauth2Callback(c *gin.Context, company, oauth2Code string) (user *mmysql.Us
 			code = pconst.CODE_API_BAD_REQUEST
 			return
 		}
-		user = &mmysql.User{Email: fmt.Sprintf("%s@github.com", *githubUser.Login)}
+		user = &mmysql.User{Email: fmt.Sprintf("%s@github.com", *githubUser.Login), AvatarUrl: *githubUser.AvatarURL}
 		if err = userDao.NewUser(c).FirstOrCreateUser(user); err != nil {
 			return nil, pconst.CODE_COMMON_SERVER_BUSY
 		}
