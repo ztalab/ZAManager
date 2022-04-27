@@ -105,8 +105,6 @@ definitions:
         - cidr
         - dns
         type: string
-      user_uuid:
-        type: string
     required:
     - host
     - name
@@ -229,8 +227,6 @@ definitions:
         enum:
         - cidr
         - dns
-        type: string
-      user_uuid:
         type: string
     required:
     - host

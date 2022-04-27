@@ -728,9 +728,6 @@
                         "cidr",
                         "dns"
                     ]
-                },
-                "user_uuid": {
-                    "type": "string"
                 }
             }
         },
@@ -902,9 +899,6 @@
                         "cidr",
                         "dns"
                     ]
-                },
-                "user_uuid": {
-                    "type": "string"
                 }
             }
         },

@@ -3,6 +3,8 @@ package mysql
 import (
 	"errors"
 
+	"github.com/ztalab/ZAManager/pkg/util"
+
 	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
 	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
 	"github.com/ztalab/ZAManager/pkg/logger"
@@ -34,6 +36,9 @@ func (p *Server) ServerList(param mparam.ServerList) (
 	if param.ResourceID > 0 {
 		query = query.Where("find_in_set (?,resource_id)", param.ResourceID)
 	}
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
+	}
 	err = query.Model(&list).Count(&total).Error
 	if total > 0 {
 		offset := param.GetOffset()
@@ -50,9 +55,13 @@ func (p *Server) ServerList(param mparam.ServerList) (
 	return
 }
 
-func (p *Server) GetServerByID(id uint64) (info mmysql.Server, err error) {
+func (p *Server) GetServerByID(id uint64) (info *mmysql.Server, err error) {
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Where("id = ?", id).First(&info).Error
+	query := orm.Table(p.TableName).Where("id = ?", id)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
+	}
+	err = query.First(&info).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
 		err = nil
 	}
@@ -63,6 +72,9 @@ func (p *Server) GetServerByID(id uint64) (info mmysql.Server, err error) {
 }
 
 func (p *Server) AddServer(data *mmysql.Server) (err error) {
+	if user := util.User(p.c); user != nil {
+		data.UserUUID = user.UUID
+	}
 	orm := p.GetOrm()
 	err = orm.Table(p.TableName).Create(&data).Error
 	if err != nil {
@@ -71,7 +83,10 @@ func (p *Server) AddServer(data *mmysql.Server) (err error) {
 	return
 }
 
-func (p *Server) EditServer(data mmysql.Server) (err error) {
+func (p *Server) EditServer(data *mmysql.Server) (err error) {
+	if user := util.User(p.c); user != nil {
+		data.UserUUID = user.UUID
+	}
 	orm := p.GetOrm()
 	err = orm.Table(p.TableName).Save(&data).Error
 	if err != nil {
@@ -82,7 +97,11 @@ func (p *Server) EditServer(data mmysql.Server) (err error) {
 
 func (p *Server) DelServer(id uint64) (err error) {
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Where("id = ?", id).Delete(&mmysql.Server{}).Error
+	query := orm.Table(p.TableName).Where("id = ?", id)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("user_uuid = ?", user.UUID)
+	}
+	err = query.Delete(&mmysql.Server{}).Error
 	if err != nil {
 		logger.Errorf(p.c, "DelServer err : %v", err)
 	}

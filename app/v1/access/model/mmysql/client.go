@@ -9,6 +9,7 @@ import (
 
 type Client struct {
 	gorm.Model
+	UserUUID string       `json:"user_uuid" gorm:"user_uuid"`
 	Name     string       `json:"name"`
 	ServerID uint64       `json:"server_id"`
 	UUID     string       `json:"uuid" gorm:"column:uuid"`

@@ -27,12 +27,11 @@ func ResourceList(c *gin.Context, param mparam.ResourceList) (code int, Resource
 
 func AddResource(c *gin.Context, param *mparam.AddResource) (code int, data *mmysql.Resource) {
 	data = &mmysql.Resource{
-		Name:     param.Name,
-		UUID:     uuid.NewString(),
-		UserUUID: param.UserUUID,
-		Type:     param.Type,
-		Host:     param.Host,
-		Port:     param.Port,
+		Name: param.Name,
+		UUID: uuid.NewString(),
+		Type: param.Type,
+		Host: param.Host,
+		Port: param.Port,
 	}
 	err := mysql.NewResource(c).AddResource(data)
 	if err != nil {
@@ -63,8 +62,8 @@ func EditResource(c *gin.Context, param *mparam.EditResource) (code int) {
 	return
 }
 
-func DelResource(c *gin.Context, id uint64, userUUID string) (code int) {
-	err := mysql.NewResource(c).DelResource(id, userUUID)
+func DelResource(c *gin.Context, id uint64) (code int) {
+	err := mysql.NewResource(c).DelResource(id)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 	}
