@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ztalab/ZAManager/pkg/logger"
+
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/ztalab/ZAManager/app/v1/user/service"
@@ -17,7 +19,7 @@ import (
 func Login(c *gin.Context) {
 	redirectURL, code := service.GetRedirectURL(c, c.Param("company"))
 	if code != pconst.CODE_ERROR_OK {
-		// TODO Redirect to one page
+		// TODO Redirect to BadRequest page
 		c.AbortWithError(http.StatusBadRequest, fmt.Errorf("company %s not support", c.Param("company")))
 		return
 	}
@@ -42,7 +44,11 @@ func Oauth2Callback(c *gin.Context) {
 	if code == pconst.CODE_ERROR_OK {
 		userBytes, _ := json.Marshal(user)
 		session.Set("user", userBytes)
-		session.Save()
+		if err := session.Save(); err != nil {
+			logger.Errorf(c, "session save err: %v", err)
+			// TODO Redirect to wrong page
+			return
+		}
 		c.Redirect(http.StatusSeeOther, "/")
 	}
 	// TODO Redirect to wrong page

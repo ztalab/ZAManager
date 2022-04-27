@@ -27,7 +27,6 @@ func ResourceList(c *gin.Context) {
 		response.UtilResponseReturnJsonFailed(c, code)
 		return
 	}
-	param.UserUUID = util.User(c).UUID
 	code, data := service.ResourceList(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
@@ -61,7 +60,6 @@ func AddResource(c *gin.Context) {
 			}
 		}
 	}
-	param.UserUUID = util.User(c).UUID
 	code, data := service.AddResource(c, param)
 	response.UtilResponseReturnJson(c, code, data)
 }
@@ -95,7 +93,6 @@ func EditResource(c *gin.Context) {
 			}
 		}
 	}
-	param.UserUUID = util.User(c).UUID
 	code = service.EditResource(c, param)
 	response.UtilResponseReturnJson(c, code, nil)
 }
@@ -114,6 +111,6 @@ func DelResource(c *gin.Context) {
 		response.UtilResponseReturnJsonFailed(c, pconst.CODE_COMMON_PARAMS_INCOMPLETE)
 		return
 	}
-	code := service.DelResource(c, uint64(idInt), util.User(c).UUID)
+	code := service.DelResource(c, uint64(idInt))
 	response.UtilResponseReturnJson(c, code, nil)
 }

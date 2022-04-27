@@ -742,9 +742,6 @@ var doc = `{
                         "cidr",
                         "dns"
                     ]
-                },
-                "user_uuid": {
-                    "type": "string"
                 }
             }
         },
@@ -916,9 +913,6 @@ var doc = `{
                         "cidr",
                         "dns"
                     ]
-                },
-                "user_uuid": {
-                    "type": "string"
                 }
             }
         },

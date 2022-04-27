@@ -28,7 +28,11 @@ func GetCookieFromGin(ctx *gin.Context, key string) (value string) {
 }
 
 func User(c *gin.Context) (user *mmysql.User) {
-	userBytes := c.MustGet("user")
-	json.Unmarshal(userBytes.([]byte), &user)
-	return
+	if userBytes, ok := c.Get("user"); ok {
+		if err := json.Unmarshal(userBytes.([]byte), &user); err != nil {
+			return
+		}
+		return nil
+	}
+	return nil
 }

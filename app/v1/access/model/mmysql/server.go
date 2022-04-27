@@ -10,6 +10,7 @@ import (
 type Server struct {
 	gorm.Model
 	ResourceID string `json:"resource_id"`
+	UserUUID   string `json:"user_uuid" gorm:"user_uuid"`
 	Name       string `json:"name"`
 	UUID       string `json:"uuid" gorm:"column:uuid"`
 	Host       string `json:"host"`
