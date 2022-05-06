@@ -9,3 +9,4 @@ ZAManager
 logs
 release_bin
 bin
+config_dev.yaml
