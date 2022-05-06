@@ -35,7 +35,7 @@ func getCaClient() *caclient.CAInstance {
 			cfg := confer.GlobalConfig().CA
 			caClient = caclient.NewCAI(
 				caclient.WithCAServer(caclient.RoleDefault /*哨兵*/, cfg.SignURL),
-				caclient.WithAuthKey(cfg.SentinelToken),
+				caclient.WithAuthKey(cfg.AuthKey),
 			)
 		}
 	})

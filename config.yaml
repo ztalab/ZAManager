@@ -27,5 +27,4 @@ ca:
   sign-url: "ZTA_CA_SIGN_URL"
   ocsp-url: "ZTA_CA_OCSP_URL"
   version: "/api/v1"
-  sentinel-token: "ZTA_CA_SENTINEL_TOKEN"
   auth-key: "ZTA_CA_AUTH_KEY"
