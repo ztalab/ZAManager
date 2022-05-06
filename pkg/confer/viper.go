@@ -2,6 +2,7 @@ package confer
 
 import (
 	"fmt"
+	"os"
 	"sync"
 
 	"github.com/spf13/viper"
@@ -26,10 +27,24 @@ func Init(configURL string) (err error) {
 }
 
 func handleConfig(config *ServerConfig) {
+	config.replaceByEnv(&config.Mysql.Write.Host)
+	config.replaceByEnv(&config.Mysql.Write.User)
+	config.replaceByEnv(&config.Mysql.Write.Password)
+	config.replaceByEnv(&config.CA.BaseURL)
+	config.replaceByEnv(&config.CA.SignURL)
+	config.replaceByEnv(&config.CA.OcspURL)
+	config.replaceByEnv(&config.CA.SentinelToken)
+	config.replaceByEnv(&config.CA.AuthKey)
 	config.Mysql.Write.DBName = globalConfig.Mysql.DBName
 	config.Mysql.Write.Prefix = globalConfig.Mysql.Prefix
 
 	return
+}
+
+func (*ServerConfig) replaceByEnv(conf *string) {
+	if s := os.Getenv(*conf); len(s) > 0 {
+		*conf = s
+	}
 }
 
 func GlobalConfig() *ServerConfig {

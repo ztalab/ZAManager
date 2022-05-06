@@ -1,8 +1,8 @@
 #APP ENV
 app:
-  env: "dev" # dev,release
+  env: "release" # dev,release
   sysname: "ZAManager"
-  port: 80
+  port: 8080
 
 #Mysql
 mysql:
@@ -16,16 +16,16 @@ mysql:
     pool-wait-count: 1000
     pool-wai-timeout: 30
   write:
-    host: "192.168.2.80"
+    host: "ZTA_MYSQL_HOST"
     port: 3306
-    user: "root"
-    password: "123456"
+    user: "ZTA_MYSQL_USER"
+    password: "ZTA_MYSQL_PASSWORD"
 
 #CA
 ca:
-  base-url: "http://192.168.2.80:8382"
-  sign-url: "https://192.168.2.80:8381"
-  ocsp-url: "http://192.168.2.80:8383"
+  base-url: "ZTA_CA_BASE_URL"
+  sign-url: "ZTA_CA_SIGN_URL"
+  ocsp-url: "ZTA_CA_OCSP_URL"
   version: "/api/v1"
-  sentinel-token: "1fb4d8144367a1cdc59500a2e81f7902a4cd5da4a1f1b2211eff42202b5b70e8"
-  auth-key: "0739a645a7d6601d9d45f6b237c4edeadad904f2fce53625dfdd541ec4fc8134"
+  sentinel-token: "ZTA_CA_SENTINEL_TOKEN"
+  auth-key: "ZTA_CA_AUTH_KEY"
