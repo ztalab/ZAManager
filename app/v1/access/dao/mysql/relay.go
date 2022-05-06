@@ -3,6 +3,8 @@ package mysql
 import (
 	"errors"
 
+	"github.com/ztalab/ZAManager/pkg/util"
+
 	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
 	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
 	"github.com/ztalab/ZAManager/pkg/logger"
@@ -31,6 +33,9 @@ func (p *Relay) RelayList(param mparam.RelayList) (
 	if len(param.Name) > 0 {
 		query = query.Where("name like ?", "%"+param.Name+"%")
 	}
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
+	}
 	err = query.Model(&list).Count(&total).Error
 	if total > 0 {
 		offset := param.GetOffset()
@@ -49,10 +54,11 @@ func (p *Relay) RelayList(param mparam.RelayList) (
 
 func (p *Relay) GetRelayByID(id uint64) (info mmysql.Relay, err error) {
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Where("id = ?", id).First(&info).Error
-	if errors.Is(err, gorm.ErrRecordNotFound) {
-		err = nil
+	query := orm.Table(p.TableName).Where("id = ?", id)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
 	}
+	err = query.First(&info).Error
 	if err != nil {
 		logger.Errorf(p.c, "GetRelayById err : %v", err)
 	}
@@ -60,6 +66,9 @@ func (p *Relay) GetRelayByID(id uint64) (info mmysql.Relay, err error) {
 }
 
 func (p *Relay) AddRelay(data *mmysql.Relay) (err error) {
+	if user := util.User(p.c); user != nil {
+		data.UserUUID = user.UUID
+	}
 	orm := p.GetOrm()
 	err = orm.Table(p.TableName).Create(&data).Error
 	if err != nil {
@@ -69,6 +78,9 @@ func (p *Relay) AddRelay(data *mmysql.Relay) (err error) {
 }
 
 func (p *Relay) EditRelay(data mmysql.Relay) (err error) {
+	if user := util.User(p.c); user != nil {
+		data.UserUUID = user.UUID
+	}
 	orm := p.GetOrm()
 	err = orm.Table(p.TableName).Save(&data).Error
 	if err != nil {
@@ -79,7 +91,11 @@ func (p *Relay) EditRelay(data mmysql.Relay) (err error) {
 
 func (p *Relay) DelRelay(id uint64) (err error) {
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Where("id = ?", id).Delete(&mmysql.Relay{}).Error
+	query := orm.Table(p.TableName).Where("id = ?", id)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("user_uuid = ?", user.UUID)
+	}
+	err = query.Delete(&mmysql.Relay{}).Error
 	if err != nil {
 		logger.Errorf(p.c, "DelRelay err : %v", err)
 	}
