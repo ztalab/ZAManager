@@ -33,7 +33,6 @@ func handleConfig(config *ServerConfig) {
 	config.replaceByEnv(&config.CA.BaseURL)
 	config.replaceByEnv(&config.CA.SignURL)
 	config.replaceByEnv(&config.CA.OcspURL)
-	config.replaceByEnv(&config.CA.SentinelToken)
 	config.replaceByEnv(&config.CA.AuthKey)
 	config.Mysql.Write.DBName = globalConfig.Mysql.DBName
 	config.Mysql.Write.Prefix = globalConfig.Mysql.Prefix

@@ -43,12 +43,11 @@ type DBBase struct {
 }
 
 type CA struct {
-	BaseURL       string `mapstructure:"base-url" json:"base_url" yaml:"base-url"`
-	SignURL       string `mapstructure:"sign-url" json:"sign_url" yaml:"sign-url"`
-	OcspURL       string `mapstructure:"ocsp-url" json:"ocsp_url" yaml:"ocsp-url"`
-	Version       string `mapstructure:"version" json:"version" yaml:"version"`
-	SentinelToken string `mapstructure:"sentinel-token" json:"sentinel_token" yaml:"sentinel-token"`
-	AuthKey       string `mapstructure:"auth-key" json:"auth_key" yaml:"auth-key"`
+	BaseURL string `mapstructure:"base-url" json:"base_url" yaml:"base-url"`
+	SignURL string `mapstructure:"sign-url" json:"sign_url" yaml:"sign-url"`
+	OcspURL string `mapstructure:"ocsp-url" json:"ocsp_url" yaml:"ocsp-url"`
+	Version string `mapstructure:"version" json:"version" yaml:"version"`
+	AuthKey string `mapstructure:"auth-key" json:"auth_key" yaml:"auth-key"`
 }
 
 type Log struct {
