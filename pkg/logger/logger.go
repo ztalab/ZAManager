@@ -1,10 +1,11 @@
 package logger
 
 import (
-	"github.com/gin-gonic/gin"
 	"os"
 	"strconv"
 	"strings"
+
+	"github.com/gin-gonic/gin"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -170,21 +171,21 @@ func Infof(format string, args ...interface{}) {
 
 func Warn(c *gin.Context, args ...interface{}) {
 	//getSimpleLogger().Warn(args...)
-	getLogger().With(getginField(c)...).Sugar().Warn(args...)
+	getLogger().With(ginField(c)...).Sugar().Warn(args...)
 }
 
 func Warnf(c *gin.Context, format string, args ...interface{}) {
 	//getSimpleLogger().Warnf(format, args...)
-	getLogger().With(getginField(c)...).Sugar().Warnf(format, args...)
+	getLogger().With(ginField(c)...).Sugar().Warnf(format, args...)
 }
 
 func Error(c *gin.Context, args ...interface{}) {
-	getLogger().With(getginField(c)...).Sugar().Error(args...)
+	getLogger().With(ginField(c)...).Sugar().Error(args...)
 	//getSimpleLogger().Error(args...)
 }
 
 func Errorf(c *gin.Context, format string, args ...interface{}) {
-	getLogger().With(getginField(c)...).Sugar().Errorf(format, args...)
+	getLogger().With(ginField(c)...).Sugar().Errorf(format, args...)
 	//getSimpleLogger().Errorf(format, args...)
 }
 
@@ -230,6 +231,9 @@ func WithContext(ctx *gin.Context) *zap.Logger {
 	return Logger()
 }
 
-func getginField(c *gin.Context) []zap.Field {
-	return []zap.Field{zap.String("url", c.Request.Method+": "+c.Request.URL.Path)}
+func ginField(c *gin.Context) []zap.Field {
+	if c != nil {
+		return []zap.Field{zap.String("url", c.Request.Method+": "+c.Request.URL.Path)}
+	}
+	return nil
 }

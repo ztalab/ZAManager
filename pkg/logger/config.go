@@ -17,5 +17,5 @@ func LogPath() string {
 }
 
 func LogName() string {
-	return "product.log"
+	return "zta.log"
 }
