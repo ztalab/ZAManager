@@ -8,6 +8,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `zta_client` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'user_uuid',
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `server_id` bigint(20) unsigned NOT NULL DEFAULT '0',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `zta_oauth2` (
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `zta_relay` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'user_uuid',
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
   `host` varchar(255) COLLATE utf8mb4_bin NOT NULL DEFAULT '',
@@ -71,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `zta_relay` (
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `zta_resource` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'user_uuid',
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
   `type` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'dns,cidr',
@@ -89,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `zta_resource` (
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS `zta_server` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'user_uuid',
   `resource_id` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'resource id , split by ","',
   `name` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'name',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
@@ -111,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `zta_server` (
 CREATE TABLE IF NOT EXISTS `zta_user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'email',
+  `avatar_url` varchar(100) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'avatar',
   `uuid` varchar(40) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'uuid',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
