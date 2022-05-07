@@ -47,6 +47,8 @@ CREATE TABLE IF NOT EXISTS `zta_oauth2` (
   KEY `idx_deleted_at` (`deleted_at`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='oauth2';
 
+INSERT INTO `zta`.`zta_oauth2` (`id`, `company`, `client_id`, `client_secret`, `redirect_url`, `scopes`, `auth_url`, `token_url`, `created_at`, `updated_at`, `deleted_at`) VALUES (1, 'github', 'client_id', 'client_secret', 'http://your_domain/api/v1/user/oauth2/callback/github', '[\"user\"]', '', '', '2022-04-20 11:47:14', '2022-04-25 13:32:23', NULL);
+
 -- ----------------------------
 -- Table structure for zta_relay
 -- ----------------------------
