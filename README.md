@@ -1,16 +1,29 @@
-# ZAManager
+![logo](logo.png)
 
-ZAManager is controller of [ZASentinel](https://github.com/ztalab/ZASentinel)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)  [![GoDoc](https://godoc.org/github.com/cloudflare/cfssl?status.svg)](https://github.com/ztalab/ZACA)
 
-ZAManager includes the following components：
+ZAManager is the controller of [ZASentinel](https://github.com/ztalab/ZASentinel)
 
-1. Access model, including Resource, Relay, Server, generate certificate.
-2. Oauth2 (developing).
-2. System (developing).
+## Features
+
+- Based on [Gin](https://github.com/gin-gonic/gin)
+- Create Resource,Client,Relay,Server
+- Apply certificates from [ZACA](https://github.com/ztalab/ZACA)
+- Swagger support
+- Oauth2
+
+## How does it work
+
+1. Users add their Resource,Client,Relay,Server from ZAManager
+2. ZAManager apply certificates from [ZACA](https://github.com/ztalab/ZACA) for each of them
+3. Users download program from  [ZASentinel](https://github.com/ztalab/ZASentinel)
+4. Config certificates for Client,Relay,Server
+
+![work](work.jpg)
 
 ## Building
 
-```
+```shell
 $ git clone git@github.com:ztalab/ZAManager.git
 $ cd ZAManager
 $ make
@@ -20,21 +33,30 @@ You can set GOOS and GOARCH environment variables to allow Go to cross-compile a
 
 The resulting binaries will be in the bin folder:
 
-```
+```shell
 $ tree bin
 bin
-├── zaca
+├── ZAManager
 ```
 
-## Configuration reference
+## Installing
 
-**configuration file:**
+### Docker-compose
 
-The configuration file is in the project root directory：`config.yml` ,The file format is standard yaml format, which can be used as a reference.
+~~~shell
+cd examples/docker-compose/
+vim nginx.conf. line 38,chane you own domain
+docker-compose up -d
+~~~
 
-ca config see [ZACA](https://github.com/ztalab/ZACA)
+This will also install [ZACA](https://github.com/ztalab/ZACA) and [ZAPortal](https://github.com/ztalab/ZAPortal)
 
+Don't forget change  `zta_oauth2 ` table Oauth2 data in mysql with your owns
 
-## Service Installation
+### Helm
 
-Start command：`ZAManager -c config.yaml`，Default listening port 80
+working on it
+
+## License
+
+ZAManager source code is available under the Apache 2.0 [License](https://github.com/ztalab/ZAManager/blob/main/LICENSE).
