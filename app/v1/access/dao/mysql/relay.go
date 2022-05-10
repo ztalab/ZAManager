@@ -89,9 +89,9 @@ func (p *Relay) EditRelay(data mmysql.Relay) (err error) {
 	return
 }
 
-func (p *Relay) DelRelay(id uint64) (err error) {
+func (p *Relay) DelRelay(uuid string) (err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id = ?", id)
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
 	if user := util.User(p.c); user != nil {
 		query = query.Where("user_uuid = ?", user.UUID)
 	}

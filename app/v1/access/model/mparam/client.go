@@ -7,7 +7,8 @@ import (
 
 type ClientList struct {
 	mdb.Paginate
-	Name string `json:"name" form:"name"`
+	Name     string `json:"name" form:"name"`
+	ServerID int    `json:"server_id"`
 }
 
 type AddClient struct {

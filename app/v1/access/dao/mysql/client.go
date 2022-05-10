@@ -33,6 +33,9 @@ func (p *Client) ClientList(param mparam.ClientList) (
 	if len(param.Name) > 0 {
 		query = query.Where("name like ?", "%"+param.Name+"%")
 	}
+	if param.ServerID > 0 {
+		query = query.Where("server_id = ?", param.ServerID)
+	}
 	if user := util.User(p.c); user != nil {
 		query = query.Where("`user_uuid` = ?", user.UUID)
 	}
@@ -92,9 +95,9 @@ func (p *Client) EditClient(data *mmysql.Client) (err error) {
 	return
 }
 
-func (p *Client) DelClient(id uint64) (err error) {
+func (p *Client) DelClient(uuid string) (err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id = ?", id)
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
 	if user := util.User(p.c); user != nil {
 		query = query.Where("user_uuid = ?", user.UUID)
 	}

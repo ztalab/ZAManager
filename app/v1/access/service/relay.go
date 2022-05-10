@@ -94,8 +94,9 @@ func EditRelay(c *gin.Context, param *mparam.EditRelay) (code int) {
 	return
 }
 
-func DelRelay(c *gin.Context, id uint64) (code int) {
-	err := mysql.NewRelay(c).DelRelay(id)
+func DelRelay(c *gin.Context, uuid string) (code int) {
+	// TODO check clients
+	err := mysql.NewRelay(c).DelRelay(uuid)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 	}

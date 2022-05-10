@@ -154,8 +154,8 @@ func EditClient(c *gin.Context, param *mparam.EditClient) (code int) {
 	return
 }
 
-func DelClient(c *gin.Context, id uint64) (code int) {
-	err := mysql.NewClient(c).DelClient(id)
+func DelClient(c *gin.Context, uuid string) (code int) {
+	err := mysql.NewClient(c).DelClient(uuid)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 	}
