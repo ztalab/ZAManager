@@ -320,15 +320,15 @@ paths:
       summary: EditClient
       tags:
       - ZTA
-  /access/client/{id}:
+  /access/client/{uuid}:
     delete:
       description: 删除ZTA的client
       parameters:
-      - description: 主键ID
+      - description: uuid
         in: path
-        name: id
+        name: uuid
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -394,15 +394,15 @@ paths:
       summary: EditRelay
       tags:
       - ZTA
-  /access/relay/{id}:
+  /access/relay/{uuid}:
     delete:
       description: 删除ZTA的relay
       parameters:
-      - description: 主键ID
+      - description: uuid
         in: path
-        name: id
+        name: uuid
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -468,7 +468,7 @@ paths:
       summary: EditResource
       tags:
       - ZTA
-  /access/resource/{id}:
+  /access/resource/{uuid}:
     delete:
       description: 删除ZTA的resource
       parameters:
@@ -542,15 +542,15 @@ paths:
       summary: EditServer
       tags:
       - ZTA
-  /access/server/{id}:
+  /access/server/{uuid}:
     delete:
       description: 删除ZTA的server
       parameters:
-      - description: 主键ID
+      - description: uuid
         in: path
-        name: id
+        name: uuid
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:

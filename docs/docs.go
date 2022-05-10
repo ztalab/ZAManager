@@ -107,7 +107,7 @@ var doc = `{
                 }
             }
         },
-        "/access/client/{id}": {
+        "/access/client/{uuid}": {
             "delete": {
                 "description": "删除ZTA的client",
                 "produces": [
@@ -119,9 +119,9 @@ var doc = `{
                 "summary": "DelClient",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }
@@ -220,7 +220,7 @@ var doc = `{
                 }
             }
         },
-        "/access/relay/{id}": {
+        "/access/relay/{uuid}": {
             "delete": {
                 "description": "删除ZTA的relay",
                 "produces": [
@@ -232,9 +232,9 @@ var doc = `{
                 "summary": "DelRelay",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }
@@ -333,7 +333,7 @@ var doc = `{
                 }
             }
         },
-        "/access/resource/{id}": {
+        "/access/resource/{uuid}": {
             "delete": {
                 "description": "删除ZTA的resource",
                 "produces": [
@@ -446,7 +446,7 @@ var doc = `{
                 }
             }
         },
-        "/access/server/{id}": {
+        "/access/server/{uuid}": {
             "delete": {
                 "description": "删除ZTA的server",
                 "produces": [
@@ -458,9 +458,9 @@ var doc = `{
                 "summary": "DelServer",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }

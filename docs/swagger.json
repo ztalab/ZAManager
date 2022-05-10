@@ -93,7 +93,7 @@
                 }
             }
         },
-        "/access/client/{id}": {
+        "/access/client/{uuid}": {
             "delete": {
                 "description": "删除ZTA的client",
                 "produces": [
@@ -105,9 +105,9 @@
                 "summary": "DelClient",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }
@@ -206,7 +206,7 @@
                 }
             }
         },
-        "/access/relay/{id}": {
+        "/access/relay/{uuid}": {
             "delete": {
                 "description": "删除ZTA的relay",
                 "produces": [
@@ -218,9 +218,9 @@
                 "summary": "DelRelay",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }
@@ -319,7 +319,7 @@
                 }
             }
         },
-        "/access/resource/{id}": {
+        "/access/resource/{uuid}": {
             "delete": {
                 "description": "删除ZTA的resource",
                 "produces": [
@@ -432,7 +432,7 @@
                 }
             }
         },
-        "/access/server/{id}": {
+        "/access/server/{uuid}": {
             "delete": {
                 "description": "删除ZTA的server",
                 "produces": [
@@ -444,9 +444,9 @@
                 "summary": "DelServer",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "主键ID",
-                        "name": "id",
+                        "type": "string",
+                        "description": "uuid",
+                        "name": "uuid",
                         "in": "path",
                         "required": true
                     }
