@@ -71,6 +71,22 @@ func (p *Server) GetServerByID(id uint64) (info *mmysql.Server, err error) {
 	return
 }
 
+func (p *Server) GetServerByUUID(uuid string) (info *mmysql.Server, err error) {
+	orm := p.GetOrm()
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
+	}
+	err = query.First(&info).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = nil
+	}
+	if err != nil {
+		logger.Errorf(p.c, "GetServerByUUID err : %v", err)
+	}
+	return
+}
+
 func (p *Server) AddServer(data *mmysql.Server) (err error) {
 	if user := util.User(p.c); user != nil {
 		data.UserUUID = user.UUID
@@ -95,9 +111,9 @@ func (p *Server) EditServer(data *mmysql.Server) (err error) {
 	return
 }
 
-func (p *Server) DelServer(id uint64) (err error) {
+func (p *Server) DelServer(uuid string) (err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id = ?", id)
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
 	if user := util.User(p.c); user != nil {
 		query = query.Where("user_uuid = ?", user.UUID)
 	}

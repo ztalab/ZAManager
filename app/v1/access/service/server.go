@@ -125,9 +125,27 @@ func EditServer(c *gin.Context, param *mparam.EditServer) (code int) {
 	return
 }
 
-func DelServer(c *gin.Context, id uint64) (code int) {
+func DelServer(c *gin.Context, uuid string) (code int) {
+	// check if any clients using this server
+	server, err := mysql.NewServer(c).GetServerByUUID(uuid)
+	if err != nil {
+		code = pconst.CODE_COMMON_SERVER_BUSY
+		return
+	}
+	if server == nil || server.ID == 0 {
+		code = pconst.CODE_COMMON_DATA_NOT_EXIST
+		return
+	}
+	total, _, err := mysql.NewClient(c).ClientList(mparam.ClientList{
+		ServerID: int(server.ID),
+	})
+	if total > 0 {
+		code = pconst.CODE_DATA_HAS_RELATION
+		c.Set("error", "There are clients under this server")
+		return
+	}
 	// TODO 吊销证书
-	err := mysql.NewServer(c).DelServer(id)
+	err = mysql.NewServer(c).DelServer(uuid)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 	}

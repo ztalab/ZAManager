@@ -1,12 +1,9 @@
 package v1
 
 import (
-	"strconv"
-
 	"github.com/ztalab/ZAManager/app/base/controller"
 	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
 	"github.com/ztalab/ZAManager/app/v1/access/service"
-	"github.com/ztalab/ZAManager/pconst"
 	"github.com/ztalab/ZAManager/pkg/response"
 
 	"github.com/gin-gonic/gin"
@@ -71,16 +68,10 @@ func EditRelay(c *gin.Context) {
 // @Description 删除ZTA的relay
 // @Tags ZTA
 // @Produce  json
-// @Param id path int true "主键ID"
+// @Param uuid path string true "uuid"
 // @Success 200 {object} controller.Res
-// @Router /access/relay/{id} [delete]
+// @Router /access/relay/{uuid} [delete]
 func DelRelay(c *gin.Context) {
-	id := c.Param("id")
-	idInt, err := strconv.Atoi(id)
-	if err != nil {
-		response.UtilResponseReturnJsonFailed(c, pconst.CODE_COMMON_PARAMS_INCOMPLETE)
-		return
-	}
-	code := service.DelRelay(c, uint64(idInt))
+	code := service.DelRelay(c, c.Param("uuid"))
 	response.UtilResponseReturnJson(c, code, nil)
 }

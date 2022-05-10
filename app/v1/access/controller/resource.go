@@ -1,7 +1,6 @@
 package v1
 
 import (
-	"strconv"
 	"strings"
 
 	"github.com/ztalab/ZAManager/app/base/controller"
@@ -103,14 +102,8 @@ func EditResource(c *gin.Context) {
 // @Produce  json
 // @Param id path int true "主键ID"
 // @Success 200 {object} controller.Res
-// @Router /access/resource/{id} [delete]
+// @Router /access/resource/{uuid} [delete]
 func DelResource(c *gin.Context) {
-	id := c.Param("id")
-	idInt, err := strconv.Atoi(id)
-	if err != nil {
-		response.UtilResponseReturnJsonFailed(c, pconst.CODE_COMMON_PARAMS_INCOMPLETE)
-		return
-	}
-	code := service.DelResource(c, uint64(idInt))
+	code := service.DelResource(c, c.Param("uuid"))
 	response.UtilResponseReturnJson(c, code, nil)
 }

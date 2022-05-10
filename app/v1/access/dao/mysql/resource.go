@@ -88,6 +88,22 @@ func (p *Resource) GetResourceByID(id uint64) (info *mmysql.Resource, err error)
 	return
 }
 
+func (p *Resource) GetResourceByUUID(uuid string) (info *mmysql.Resource, err error) {
+	orm := p.GetOrm()
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
+	if user := util.User(p.c); user != nil {
+		query = query.Where("`user_uuid` = ?", user.UUID)
+	}
+	err = query.First(&info).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		err = nil
+	}
+	if err != nil {
+		logger.Errorf(p.c, "GetResourceByUUID err : %v", err)
+	}
+	return
+}
+
 func (p *Resource) AddResource(data *mmysql.Resource) (err error) {
 	if user := util.User(p.c); user != nil {
 		data.UserUUID = user.UUID
@@ -112,9 +128,9 @@ func (p *Resource) EditResource(data *mmysql.Resource) (err error) {
 	return
 }
 
-func (p *Resource) DelResource(id uint64) (err error) {
+func (p *Resource) DelResource(uuid string) (err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id = ?", id)
+	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
 	if user := util.User(p.c); user != nil {
 		query = query.Where("user_uuid = ?", user.UUID)
 	}
