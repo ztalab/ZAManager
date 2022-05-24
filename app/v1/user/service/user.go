@@ -86,6 +86,9 @@ func Oauth2Callback(c *gin.Context, session sessions.Session, company, oauth2Cod
 	session.Save()
 	// 判断是否有机器鉴权
 	if machine := session.Get("machine"); machine != nil {
+		// 删除machine这个session
+		session.Delete("machine")
+		session.Save()
 		// 给当前请求授权
 		cookie, _ := c.Cookie("zta")
 		longpoll.Manger().Publish(machine.(string), cookie)
