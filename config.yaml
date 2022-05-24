@@ -3,7 +3,7 @@ app:
   env: "release" # dev,release
   sysname: "ZAManager"
   port: 8080
-  domain: domain.com
+  domain: DOMAIN
 
 #Mysql
 mysql:
