@@ -38,5 +38,4 @@ func Oauth2Callback(c *gin.Context) {
 		_ = c.AbortWithError(http.StatusBadRequest, errors.New("code error"))
 	}
 	service.Oauth2Callback(c, session, c.Param("company"), c.Query("code"))
-
 }
