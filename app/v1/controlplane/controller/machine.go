@@ -29,7 +29,7 @@ func MachineOauth(c *gin.Context) {
 	service.MachineOauth(c, c.Param("hash"))
 }
 
-// @Summary MachineOauth
+// @Summary MachineLongpoll
 // @Description 机器鉴权
 // @Tags ZTA ControlPlane
 // @Produce  json
