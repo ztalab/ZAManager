@@ -1,7 +1,14 @@
 package service
 
 import (
+	"encoding/json"
+	"errors"
 	"fmt"
+	"net/http"
+
+	"github.com/ztalab/ZAManager/pkg/longpoll"
+
+	"github.com/gin-gonic/contrib/sessions"
 
 	"github.com/gin-gonic/gin"
 	"github.com/ztalab/ZAManager/app/v1/system/dao/mysql"
@@ -38,39 +45,53 @@ func GetRedirectURL(c *gin.Context, company string) (redirectURL string, code in
 	return
 }
 
-func Oauth2Callback(c *gin.Context, company, oauth2Code string) (user *mmysql.User, code int) {
+func Oauth2Callback(c *gin.Context, session sessions.Session, company, oauth2Code string) {
+	var user *mmysql.User
 	// 查询对应的配置
 	info, err := mysql.NewOauth2(c).GetOauth2ByCompany(company)
 	if err != nil {
-		code = pconst.CODE_COMMON_SERVER_BUSY
+		c.AbortWithError(http.StatusInternalServerError, errors.New("oauth error"))
 		return
 	}
 	if info.ID == 0 {
-		code = pconst.CODE_API_BAD_REQUEST
+		c.AbortWithError(http.StatusInternalServerError, errors.New("oauth error"))
 		return
 	}
 	config, err := service.Oauth2Config(info)
 	if err != nil {
-		code = pconst.CODE_API_BAD_REQUEST
+		c.AbortWithError(http.StatusInternalServerError, errors.New("oauth error"))
 		return
 	}
 	switch company {
 	case "github":
 		githubUser, err := api.GetGithubUser(c, config, oauth2Code)
 		if err != nil {
-			code = pconst.CODE_API_BAD_REQUEST
+			c.AbortWithError(http.StatusInternalServerError, errors.New("oauth error"))
 			return
 		}
 		user = &mmysql.User{Email: fmt.Sprintf("%s@github.com", *githubUser.Login), AvatarUrl: *githubUser.AvatarURL}
 		if err = userDao.NewUser(c).FirstOrCreateUser(user); err != nil {
-			return nil, pconst.CODE_COMMON_SERVER_BUSY
+			c.AbortWithError(http.StatusInternalServerError, errors.New("oauth error"))
+			return
 		}
 	case "google":
 		config.Endpoint = google.Endpoint
 	case "facebook":
 		config.Endpoint = facebook.Endpoint
 	default:
-		return nil, pconst.CODE_API_BAD_REQUEST
+
+	}
+	userBytes, _ := json.Marshal(user)
+	session.Set("user", userBytes)
+	session.Save()
+	// 判断是否有机器鉴权
+	if machine := session.Get("machine"); machine != nil {
+		// 给当前请求授权
+		cookie, _ := c.Cookie("zta")
+		longpoll.Manger().Publish(machine.(string), cookie)
+		c.String(http.StatusOK, "Auth Success!")
+	} else {
+		c.Redirect(http.StatusSeeOther, "/")
 	}
 	return
 }

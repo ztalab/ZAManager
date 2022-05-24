@@ -23,6 +23,35 @@ var doc = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/a/{hash}": {
+            "get": {
+                "description": "机器鉴权",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA ControlPlane"
+                ],
+                "summary": "MachineOauth",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "hash",
+                        "name": "hash",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
+        },
         "/access/client": {
             "get": {
                 "description": "获取ZTA的client",
@@ -462,6 +491,71 @@ var doc = `{
                         "description": "uuid",
                         "name": "uuid",
                         "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/controlplane/machine/{machine_id}": {
+            "get": {
+                "description": "根据机器码获取客户端鉴权的url",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA ControlPlane"
+                ],
+                "summary": "LoginUrl",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "machine_id",
+                        "name": "machine_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/machine/auth/poll": {
+            "get": {
+                "description": "机器鉴权",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA ControlPlane"
+                ],
+                "summary": "MachineOauth",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "轮询的主题",
+                        "name": "category",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "超时时间，单位：秒",
+                        "name": "timeout",
+                        "in": "query",
                         "required": true
                     }
                 ],
