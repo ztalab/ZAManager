@@ -26,7 +26,7 @@ func GetLoginUrl(c *gin.Context, machine string) (code int, loginURL string) {
 		code = pconst.CODE_COMMON_SERVER_BUSY
 		return
 	}
-	loginURL = fmt.Sprintf("https://%s/a/%s", confer.ConfigAppGet("domain"), hash)
+	loginURL = fmt.Sprintf("%s/a/%s", confer.ConfigAppGet("domain"), hash)
 	return
 }
 
