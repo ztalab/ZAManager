@@ -6,15 +6,20 @@ import (
 )
 
 type ServerConfig struct {
-	App App `mapstructure:"app" json:"app" yaml:"app"`
-	Log Log `mapstructure:"log" json:"log" yaml:"log"`
-	//RedisCluster RedisCluster `mapstructure:"redis-cluster" json:"redis_cluster" yaml:"redis-cluster"`
+	App   App   `mapstructure:"app" json:"app" yaml:"app"`
+	Log   Log   `mapstructure:"log" json:"log" yaml:"log"`
+	Redis Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Mysql Mysql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	CA    CA    `mapstructure:"ca" json:"ca" yaml:"ca"`
 	sync.RWMutex
 }
 
 type App map[string]interface{}
+
+type Redis struct {
+	Addr   string `mapstructure:"addr" json:"addr" yaml:"addr"`
+	Prefix string `mapstructure:"prefix" json:"prefix" yaml:"prefix"`
+}
 
 type Mysql struct {
 	DBName string   `mapstructure:"dbname" json:"dbName" yaml:"dbname"`

@@ -3,6 +3,7 @@ app:
   env: "release" # dev,release
   sysname: "ZAManager"
   port: 8080
+  domain: domain.com
 
 #Mysql
 mysql:
@@ -20,6 +21,10 @@ mysql:
     port: 3306
     user: "ZTA_MYSQL_USER"
     password: "ZTA_MYSQL_PASSWORD"
+
+#Redis
+redis:
+  addr: "ZTA_REDIS_ADDR"
 
 #CA
 ca:

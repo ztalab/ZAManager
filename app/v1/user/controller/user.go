@@ -1,12 +1,9 @@
 package controller
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
-
-	"github.com/ztalab/ZAManager/pkg/logger"
 
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -40,16 +37,6 @@ func Oauth2Callback(c *gin.Context) {
 	if len(c.Query("code")) == 0 {
 		_ = c.AbortWithError(http.StatusBadRequest, errors.New("code error"))
 	}
-	user, code := service.Oauth2Callback(c, c.Param("company"), c.Query("code"))
-	if code == pconst.CODE_ERROR_OK {
-		userBytes, _ := json.Marshal(user)
-		session.Set("user", userBytes)
-		if err := session.Save(); err != nil {
-			logger.Errorf(c, "session save err: %v", err)
-			// TODO Redirect to wrong page
-			return
-		}
-		c.Redirect(http.StatusSeeOther, "/")
-	}
-	// TODO Redirect to wrong page
+	service.Oauth2Callback(c, session, c.Param("company"), c.Query("code"))
+
 }

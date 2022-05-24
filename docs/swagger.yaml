@@ -265,6 +265,25 @@ info:
   title: ZAManager API
   version: 1.0.0
 paths:
+  /a/{hash}:
+    get:
+      description: 机器鉴权
+      parameters:
+      - description: hash
+        in: path
+        name: hash
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: MachineOauth
+      tags:
+      - ZTA ControlPlane
   /access/client:
     get:
       description: 获取ZTA的client
@@ -561,6 +580,49 @@ paths:
       summary: DelServer
       tags:
       - ZTA
+  /controlplane/machine/{machine_id}:
+    get:
+      description: 根据机器码获取客户端鉴权的url
+      parameters:
+      - description: machine_id
+        in: path
+        name: machine_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: LoginUrl
+      tags:
+      - ZTA ControlPlane
+  /machine/auth/poll:
+    get:
+      description: 机器鉴权
+      parameters:
+      - description: 轮询的主题
+        in: query
+        name: category
+        required: true
+        type: string
+      - description: 超时时间，单位：秒
+        in: query
+        name: timeout
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: MachineOauth
+      tags:
+      - ZTA ControlPlane
   /sysytem/oauth2:
     get:
       description: 获取ZTA的Oauth2

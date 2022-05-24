@@ -23,7 +23,7 @@ func RunHTTP() {
 	// swagger
 	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//}
-	engine.Use(middle.Session("ZTA_session"))
+	engine.Use(middle.Session("zta", &confer.GlobalConfig().Redis))
 	route.Home(engine)
 	route.Api(engine)
 	route.NotFound(engine)

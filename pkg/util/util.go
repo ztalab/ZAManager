@@ -1,6 +1,8 @@
 package util
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"net"
 	"regexp"
@@ -35,4 +37,12 @@ func User(c *gin.Context) (user *mmysql.User) {
 		return nil
 	}
 	return nil
+}
+
+func NewMd5(str ...string) string {
+	h := md5.New()
+	for _, v := range str {
+		h.Write([]byte(v))
+	}
+	return hex.EncodeToString(h.Sum(nil))
 }
