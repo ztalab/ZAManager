@@ -27,6 +27,7 @@ func Init(configURL string) (err error) {
 }
 
 func handleConfig(config *ServerConfig) {
+	config.replaceByEnv(&config.Redis.Addr)
 	config.replaceByEnv(&config.Mysql.Write.Host)
 	config.replaceByEnv(&config.Mysql.Write.User)
 	config.replaceByEnv(&config.Mysql.Write.Password)

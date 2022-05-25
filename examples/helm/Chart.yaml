@@ -4,5 +4,5 @@ kubeVersion: '>=1.16.0-0'
 maintainers:
 - email: taosheng205054@gmail.com
   name: TS
-name: ZTALAB
+name: ztalab
 version: 0.0.1
