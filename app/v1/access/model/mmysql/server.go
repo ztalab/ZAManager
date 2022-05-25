@@ -18,6 +18,7 @@ type Server struct {
 	OutPort    int    `json:"out_port"`
 	CaPem      string `json:"ca_pem"`
 	CertPem    string `json:"cert_pem"`
+	KeyPem     string `json:"key_pem"`
 }
 
 func (Server) TableName() string {

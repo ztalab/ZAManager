@@ -63,6 +63,7 @@ func AddServer(c *gin.Context, param *mparam.AddServer) (code int, data *mmysql.
 		}
 		data.CaPem = sentinelSign.CaPEM
 		data.CertPem = sentinelSign.CertPEM
+		data.KeyPem = sentinelSign.KeyPEM
 	}
 	err := mysql.NewServer(c).AddServer(data)
 	if err != nil {
@@ -113,9 +114,11 @@ func EditServer(c *gin.Context, param *mparam.EditServer) (code int) {
 		}
 		info.CaPem = sentinelSign.CaPEM
 		info.CertPem = sentinelSign.CertPEM
+		info.KeyPem = sentinelSign.KeyPEM
 	} else {
 		info.CaPem = ""
 		info.CertPem = ""
+		info.KeyPem = ""
 	}
 	err = mysql.NewServer(c).EditServer(info)
 	if err != nil {
