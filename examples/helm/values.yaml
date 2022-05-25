@@ -11,7 +11,7 @@ deployment:
         memory: 200Mi
   zamanager:
     repository: taosheng205054/zamanager
-    tag: 0.0.4
+    tag: latest
     resources:
       requests:
         cpu: 50m
@@ -20,6 +20,8 @@ deployment:
         cpu: 1
         memory: 200Mi
     env:
+      DOMAIN: 'https://net.ztalab.xyz'
+      ZTA_REDIS_ADDR: 'redis:6379'
       ZTA_MYSQL_HOST: 'mysql'
       ZTA_MYSQL_USER: 'root'
       ZTA_MYSQL_PASSWORD: 'root'
@@ -29,7 +31,7 @@ deployment:
 replicas: 3
 
 ingress:
-  host: xx.xx.com
+  host: net.ztalab.xyz
   annotations:
 
 
