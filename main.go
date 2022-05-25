@@ -18,7 +18,6 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "ZAManager"
 	app.Author = "TS"
-	app.Email = "taosheng205054@gamil.com"
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:  "server",
