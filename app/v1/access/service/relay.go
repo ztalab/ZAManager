@@ -50,6 +50,7 @@ func AddRelay(c *gin.Context, param *mparam.AddRelay) (code int, data *mmysql.Re
 	}
 	data.CaPem = sentinelSign.CaPEM
 	data.CertPem = sentinelSign.CertPEM
+	data.KeyPem = sentinelSign.KeyPEM
 	err = mysql.NewRelay(c).AddRelay(data)
 	if err != nil {
 		return pconst.CODE_COMMON_SERVER_BUSY, nil
@@ -86,6 +87,7 @@ func EditRelay(c *gin.Context, param *mparam.EditRelay) (code int) {
 	}
 	info.CaPem = sentinelSign.CaPEM
 	info.CertPem = sentinelSign.CertPEM
+	info.KeyPem = sentinelSign.KeyPEM
 	err = mysql.NewRelay(c).EditRelay(info)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY

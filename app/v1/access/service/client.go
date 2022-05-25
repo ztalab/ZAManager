@@ -97,6 +97,7 @@ func AddClient(c *gin.Context, param *mparam.AddClient) (code int, data *mmysql.
 	}
 	data.CaPem = sentinelSign.CaPEM
 	data.CertPem = sentinelSign.CertPEM
+	data.KeyPem = sentinelSign.KeyPEM
 	err = mysql.NewClient(c).AddClient(data)
 	if err != nil {
 		return pconst.CODE_COMMON_SERVER_BUSY, nil
@@ -146,6 +147,7 @@ func EditClient(c *gin.Context, param *mparam.EditClient) (code int) {
 	}
 	info.CaPem = sentinelSign.CaPEM
 	info.CertPem = sentinelSign.CertPEM
+	info.KeyPem = sentinelSign.KeyPEM
 	err = mysql.NewClient(c).EditClient(info)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY
