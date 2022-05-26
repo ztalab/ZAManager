@@ -3,8 +3,6 @@ package controlplane
 import (
 	"net/http"
 
-	"github.com/ztalab/ZAManager/pkg/longpoll"
-
 	"github.com/gin-gonic/gin"
 	v1 "github.com/ztalab/ZAManager/app/v1/controlplane/controller"
 )
@@ -14,7 +12,8 @@ func APIControlPlane(parentRoute gin.IRouter) {
 	{
 		controlplane.GET("/machine/:machine_id", v1.LoginUrl)
 		//controlplane.POST("/machine/auth/pub", wrapWithContext(longpoll.Manger().PublishHandler))
-		controlplane.GET("/machine/auth/poll", wrapWithContext(longpoll.Manger().SubscriptionHandler))
+		//controlplane.GET("/machine/auth/poll", wrapWithContext(longpoll.Manger().SubscriptionHandler))
+		controlplane.GET("/machine/auth/poll", v1.MachineLongPoll)
 	}
 }
 

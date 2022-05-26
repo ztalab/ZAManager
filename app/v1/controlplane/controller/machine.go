@@ -2,6 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/ztalab/ZAManager/app/base/controller"
+	"github.com/ztalab/ZAManager/app/v1/controlplane/model/mparam"
 	"github.com/ztalab/ZAManager/app/v1/controlplane/service"
 	"github.com/ztalab/ZAManager/pkg/response"
 )
@@ -29,7 +31,7 @@ func MachineOauth(c *gin.Context) {
 	service.MachineOauth(c, c.Param("hash"))
 }
 
-// @Summary MachineLongpoll
+// @Summary MachineLongPoll
 // @Description 机器鉴权
 // @Tags ZTA ControlPlane
 // @Produce  json
@@ -37,6 +39,13 @@ func MachineOauth(c *gin.Context) {
 // @Param timeout query int true "超时时间，单位：秒"
 // @Success 200 {object} controller.Res
 // @Router /machine/auth/poll [get]
-func MachineLongpoll(c *gin.Context) {
-
+func MachineLongPoll(c *gin.Context) {
+	param := mparam.MachineLongPoll{}
+	b, code := controller.BindParams(c, &param)
+	if !b {
+		response.UtilResponseReturnJsonFailed(c, code)
+		return
+	}
+	data, code := service.MachineLongPoll(c, param)
+	response.UtilResponseReturnJson(c, code, data)
 }

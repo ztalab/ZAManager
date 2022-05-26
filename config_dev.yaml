@@ -24,7 +24,7 @@ mysql:
 
 #Redis
 redis:
-  addr: "127.0.0.1:6379"
+  addr: "192.168.2.80:6379"
 
 #CA
 ca:
