@@ -10,19 +10,3 @@ spec:
     targetPort: 80
   selector:
     app: zaportal
-
----
-
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: msp-docs
-  name: msp-docs
-spec:
-  ports:
-    - port: 80
-      targetPort: 80
-      name: docs
-  selector:
-    app: msp-docs
