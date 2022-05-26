@@ -68,7 +68,7 @@ func (m *Machine) GetLoginHash(hash string) (exist bool, data string, err error)
 }
 
 func (m *Machine) PubMachineCookie(key, value string) (err error) {
-	err = m.client.RPush(m.ctx, fmt.Sprintf("%s%s", m.Prefix, key), value).Err()
+	err = m.client.RPush(m.ctx, fmt.Sprintf("%spubsub:%s", m.Prefix, key), value).Err()
 	if err != nil {
 		logger.Errorf(m.c, "PubMachineCookie err : %v", err)
 		return
@@ -82,7 +82,7 @@ func (m *Machine) PubMachineCookie(key, value string) (err error) {
 }
 
 func (m *Machine) SubMachineCookie(key string, timeout time.Duration) (data []string, err error) {
-	data, err = m.client.BLPop(m.ctx, timeout, fmt.Sprintf("%s%s", m.Prefix, key)).Result()
+	data, err = m.client.BLPop(m.ctx, timeout, fmt.Sprintf("%spubsub:%s", m.Prefix, key)).Result()
 	if errors.Is(err, redis.Nil) {
 		return nil, nil
 	}
