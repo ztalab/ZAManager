@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/ztalab/ZAManager/pkg/longpoll"
+	"github.com/ztalab/ZAManager/app/v1/controlplane/dao/redis"
 
 	"github.com/gin-gonic/contrib/sessions"
 
@@ -91,7 +91,8 @@ func Oauth2Callback(c *gin.Context, session sessions.Session, company, oauth2Cod
 		session.Save()
 		// 给当前请求授权
 		cookie, _ := c.Cookie("zta")
-		longpoll.Manger().Publish(machine.(string), cookie)
+		redis.NewMachine(c).PubMachineCookie(machine.(string), cookie)
+		//longpoll.Manger().Publish(machine.(string), cookie)
 		c.String(http.StatusOK, "Auth Success!")
 	} else {
 		c.Redirect(http.StatusSeeOther, "/")

@@ -7,6 +7,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/ztalab/ZAManager/app/v1/controlplane/model/mparam"
+
 	"github.com/gin-gonic/contrib/sessions"
 
 	"github.com/ztalab/ZAManager/app/v1/controlplane/dao/redis"
@@ -53,4 +55,18 @@ func MachineOauth(c *gin.Context, hash string) {
 		return
 	}
 
+}
+
+func MachineLongPoll(c *gin.Context, param mparam.MachineLongPoll) (data string, code int) {
+	result, err := redis.NewMachine(c).SubMachineCookie(param.Category, time.Second*time.Duration(param.Timeout))
+	if err != nil {
+		code = pconst.CODE_COMMON_SERVER_BUSY
+		return
+	}
+	if len(result) >= 2 {
+		data = result[1]
+		return
+	}
+	code = pconst.CODE_COMMON_DATA_NOT_EXIST
+	return
 }
