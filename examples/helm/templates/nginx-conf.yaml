@@ -51,7 +51,7 @@ data:
           }
 
           location ^~ /a/ {
-             proxy_pass   http://zta-backend:8080;
+             proxy_pass   http://127.0.0.1:8080;
           }
 
           location ~ .*\.(gif|jpg|jpeg|png|bmp|swf|flv|mp4|ico)$ {

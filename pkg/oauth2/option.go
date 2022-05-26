@@ -9,7 +9,7 @@ import (
 
 func GetOauth2RedirectURL(c *gin.Context, config *oauth2.Config) (redirectURL string, err error) {
 	state := xid.New().String()
-	redirectURL = config.AuthCodeURL(state)
+	redirectURL = config.AuthCodeURL(state, oauth2.ApprovalForce)
 	session := sessions.Default(c)
 	session.Set("state", state)
 	err = session.Save()
