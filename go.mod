@@ -4,13 +4,11 @@ go 1.17
 
 require (
 	github.com/DeanThompson/ginpprof v0.0.0-20201112072838-007b1e56b2e1
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/contrib v0.0.0-20201101042839-6a891bf89f19
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-resty/resty/v2 v2.7.0
-	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/uuid v1.3.0
 	github.com/rs/xid v1.2.1
