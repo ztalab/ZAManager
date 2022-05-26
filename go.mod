@@ -13,7 +13,6 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/google/go-github v17.0.0+incompatible
 	github.com/google/uuid v1.3.0
-	github.com/jcuga/golongpoll v1.3.0
 	github.com/rs/xid v1.2.1
 	github.com/rubenv/sql-migrate v1.1.1
 	github.com/spf13/viper v1.11.0
@@ -67,7 +66,6 @@ require (
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
-	github.com/gofrs/uuid v4.0.0+incompatible // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect

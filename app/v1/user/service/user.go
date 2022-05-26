@@ -92,7 +92,6 @@ func Oauth2Callback(c *gin.Context, session sessions.Session, company, oauth2Cod
 		// 给当前请求授权
 		cookie, _ := c.Cookie("zta")
 		redis.NewMachine(c).PubMachineCookie(machine.(string), cookie)
-		//longpoll.Manger().Publish(machine.(string), cookie)
 		c.String(http.StatusOK, "Auth Success!")
 	} else {
 		c.Redirect(http.StatusSeeOther, "/")
