@@ -51,7 +51,7 @@ func initMysqlPool(cfg *confer.Mysql, isRead bool) (err error) {
 		mysqlWritePool.IsRead = isRead
 	}
 	if err != nil {
-		err = errors.New(fmt.Sprintf("initMysqlPool isread:%v ,error: %v", isRead, err))
+		err = errors.New(fmt.Sprintf("initMysqlPool isread: %v ,error: %v", isRead, err))
 		return
 	}
 	if isRead {
@@ -110,10 +110,6 @@ func initDb(cfg *confer.Mysql, isRead bool) (resultDb *gorm.DB, err error) {
 		config.Logger = newLogger
 	}
 	resultDb, err = gorm.Open(mysql.Open(dsn), config)
-	if err != nil {
-		return resultDb, err
-	}
-
 	return resultDb, err
 }
 
@@ -154,10 +150,5 @@ func SqlMigrate() (err error) {
 		return
 	}
 	_, err = migrate.Exec(sqlDB, "mysql", migrations, migrate.Up)
-	if err != nil {
-		//logger.LogErrorw(nil, logger.LogNameMysql, "sqlMigrate err ", err)
-		return
-	}
-	//logger.LogInfof(nil, logger.LogNameMysql, "sqlMigrate code is : %d", code)
 	return
 }
