@@ -39,7 +39,7 @@ func Init(cfg *Config) {
 	consoleCore := zapcore.NewCore(consoleEncoder, consoleSyncer, l)
 
 	var opts []zap.Option
-	opts = append(opts, zap.AddStacktrace(zap.DPanicLevel))
+	opts = append(opts, zap.AddStacktrace(zap.DPanicLevel), zap.AddCallerSkip(1))
 	if !cfg.NoCaller {
 		opts = append(opts, zap.AddCaller())
 	}
@@ -57,7 +57,7 @@ func Init(cfg *Config) {
 	}
 
 	logger = zap.New(core, opts...)
-	simpleLogger = logger.WithOptions(zap.AddCallerSkip(1)).Sugar()
+	simpleLogger = logger.Sugar()
 }
 
 func getJSONEncoder(cfg *Config) zapcore.Encoder {

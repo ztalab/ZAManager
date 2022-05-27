@@ -5,6 +5,7 @@ import (
 
 	"github.com/urfave/cli"
 	_ "github.com/ztalab/ZAManager/docs"
+	"github.com/ztalab/ZAManager/pkg/logger"
 	"github.com/ztalab/ZAManager/server"
 	_ "go.uber.org/automaxprocs"
 )
@@ -44,6 +45,7 @@ func main() {
 	}
 	err := app.Run(os.Args)
 	if err != nil {
+		logger.Errorf(nil, "app run error : %v", err)
 		panic("app run error:" + err.Error())
 	}
 }
