@@ -11,6 +11,7 @@ type ServerConfig struct {
 	Redis Redis `mapstructure:"redis" json:"redis" yaml:"redis"`
 	Mysql Mysql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	CA    CA    `mapstructure:"ca" json:"ca" yaml:"ca"`
+	P2P   P2P   `mapstructure:"p2p" json:"p2p" yaml:"p2p"`
 	sync.RWMutex
 }
 
@@ -53,6 +54,13 @@ type CA struct {
 	OcspURL string `mapstructure:"ocsp-url" json:"ocsp_url" yaml:"ocsp-url"`
 	Version string `mapstructure:"version" json:"version" yaml:"version"`
 	AuthKey string `mapstructure:"auth-key" json:"auth_key" yaml:"auth-key"`
+}
+
+type P2P struct {
+	Enable               bool   `mapstructure:"enable" json:"enable" yaml:"enable"`
+	ServiceDiscoveryID   string `mapstructure:"service-discovery-id" json:"service_discovery_id" yaml:"service-discovery-id"`
+	ServiceDiscoveryMode string `mapstructure:"service-discovery-mode" json:"service_discovery_mode" yaml:"service-discovery-mode"`
+	ServiceMetadataTopic string `mapstructure:"service-metadata-topic" json:"service_metadata_topic" yaml:"service-metadata-topic"`
 }
 
 type Log struct {

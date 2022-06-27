@@ -33,3 +33,9 @@ ca:
   ocsp-url: "http://192.168.2.80:8383"
   version: "/api/v1"
   auth-key: "0739a645a7d6601d9d45f6b237c4edeadad904f2fce53625dfdd541ec4fc8134"
+
+p2p:
+  enable: true
+  service-discovery-id: "ztalab/provider"
+  service-discovery-mode: "advertise" # advertise or announce
+  service-metadata-topic: "advertise" # advertise or announce
