@@ -18,7 +18,6 @@ require (
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
 	github.com/urfave/cli v1.22.5
-	github.com/ztalab/ZACA v0.0.1
 	github.com/ztalab/cfssl v0.0.2
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/zap v1.21.0
