@@ -11,9 +11,9 @@ import (
 	"github.com/ztalab/ZAManager/pkg/confer"
 	"github.com/ztalab/ZAManager/pkg/logger"
 	"github.com/ztalab/cfssl/helpers"
+	"github.com/ztalab/zaca-sdk/caclient"
+	"github.com/ztalab/zaca-sdk/keygen"
 	"github.com/ztalab/zaca-sdk/pkg/attrmgr"
-	"github.com/ztalab/zaca-sdk/pkg/caclient"
-	"github.com/ztalab/zaca-sdk/pkg/keygen"
 	"github.com/ztalab/zaca-sdk/pkg/spiffe"
 )
 
