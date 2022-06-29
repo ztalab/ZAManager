@@ -3,12 +3,12 @@ package mmysql
 import (
 	"database/sql/driver"
 	"encoding/json"
-
-	"gorm.io/gorm"
 )
 
 type Server struct {
-	gorm.Model
+	ID         uint   `gorm:"primarykey"`
+	CreatedAt  int64  `gorm:"autoCreateTime"`
+	UpdatedAt  int64  `gorm:"autoUpdateTime"`
 	ResourceID string `json:"resource_id"`
 	UserUUID   string `json:"user_uuid" gorm:"user_uuid"`
 	Name       string `json:"name"`

@@ -620,9 +620,22 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/controller.Res'
-      summary: MachineOauth
+      summary: MachineLongPoll
       tags:
       - ZTA ControlPlane
+  /node:
+    get:
+      description: 获取全部节点
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Res'
+      summary: ListNode
+      tags:
+      - ZTA Node
   /sysytem/oauth2:
     get:
       description: 获取ZTA的Oauth2

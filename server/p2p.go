@@ -3,13 +3,17 @@ package server
 import (
 	"time"
 
-	"github.com/ztalab/ZAManager/pkg/schema"
+	"github.com/ztalab/ZAManager/app/v1/node/service"
+
 	"github.com/ztalab/ZAManager/pkg/util/json"
+
+	"github.com/ztalab/ZAManager/pkg/util"
 
 	"github.com/sirupsen/logrus"
 	"github.com/ztalab/ZAManager/pkg/confer"
 	"github.com/ztalab/ZAManager/pkg/logger"
 	"github.com/ztalab/ZAManager/pkg/p2p"
+	"github.com/ztalab/ZAManager/pkg/schema"
 )
 
 func runP2P() error {
@@ -41,31 +45,34 @@ func runP2P() error {
 func startEventHandler(ps *p2p.PubSub) {
 	ticker := time.NewTicker(time.Second)
 	defer ticker.Stop()
-
+	info := NewServerInfo(ps.Host)
 	for {
 		select {
 		case msg := <-ps.Inbound:
-			// Print the received messages to the message box
-			logger.Infof("Received message:%s", msg)
+			//p2p.Generate(msg.Message)
+			service.AddNode(nil, p2p.Generate(msg.Message))
 		case <-ticker.C:
 			// publish
-			ps.Outbound <- getServerInfo()
+			ps.Outbound <- json.MarshalToString(info)
 		}
 	}
 }
 
-func getServerInfo() string {
-	result := schema.ServerInfo{
-		PeerId: "I'm peer id",
-		Addr:   "server.zta.com",
-		Port:   5091,
-		MetaData: schema.MetaData{
-			Ip:   "127.0.0.1",
-			Loc:  "nanjing",
-			Colo: "China",
-		},
-		GasPrice: 1000000,
-		Type:     schema.ServerTypeProvider,
+func NewServerInfo(p *p2p.P2P) (server *schema.ServerInfo) {
+	server = &schema.ServerInfo{
+		PeerId: confer.GlobalConfig().P2P.Account,
+		Type:   schema.FullNode,
 	}
-	return json.MarshalToString(result)
+	trace, err := util.GetCftrace()
+	if err != nil {
+		logger.Warnf(nil, "Request Cfssl CDN Trace Error:%s", err)
+	} else {
+		server.MetaData = schema.MetaData{
+			Ip:   trace.Ip,
+			Loc:  trace.Loc,
+			Colo: trace.Colo,
+		}
+	}
+	return
+	//return json.MarshalToString(result)
 }

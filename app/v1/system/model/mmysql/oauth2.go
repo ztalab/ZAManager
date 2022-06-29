@@ -3,13 +3,13 @@ package mmysql
 import (
 	"database/sql/driver"
 	"encoding/json"
-
-	"gorm.io/gorm"
 )
 
 type Oauth2 struct {
-	gorm.Model
-	Company      string `json:"name" binding:"required,oneof= github facebook google"`
+	ID           uint   `gorm:"primarykey"`
+	CreatedAt    int64  `gorm:"autoCreateTime"`
+	UpdatedAt    int64  `gorm:"autoUpdateTime"`
+	Company      string `json:"company" binding:"required,oneof= github facebook google"`
 	ClientId     string `json:"client_id" binding:"required"`
 	ClientSecret string `json:"client_secret" binding:"required"`
 	RedirectUrl  string `json:"redirect_url" binding:"required"`

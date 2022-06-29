@@ -25,9 +25,9 @@ func InitService(c *cli.Context) (err error) {
 	if err = mysql.Init(&cfg.Mysql); err != nil {
 		return
 	}
-	if err = mysql.SqlMigrate(); err != nil {
-		return
-	}
+	//if err = mysql.SqlMigrate(); err != nil {
+	//	return
+	//}
 	// 判断是否开启P2P
 	if confer.GlobalConfig().P2P.Enable {
 		return runP2P()

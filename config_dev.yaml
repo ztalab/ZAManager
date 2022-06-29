@@ -17,10 +17,15 @@ mysql:
     pool-wait-count: 1000
     pool-wai-timeout: 30
   write:
-    host: "192.168.2.80"
-    port: 3306
-    user: "root"
-    password: "123456"
+    host: "127.0.0.1"
+    port: 23306
+    user: "host1"
+    password: "host1"
+#  write:
+#    host: "192.168.2.80"
+#    port: 3306
+#    user: "root"
+#    password: "123456"
 
 #Redis
 redis:
@@ -35,7 +40,8 @@ ca:
   auth-key: "0739a645a7d6601d9d45f6b237c4edeadad904f2fce53625dfdd541ec4fc8134"
 
 p2p:
-  enable: true
+  enable: false
+  account: "0x828233e3908fB45d40baC6B2F19F8A239ab7ae7d"
   service-discovery-id: "ztalab/provider"
   service-discovery-mode: "advertise" # advertise or announce
-  service-metadata-topic: "advertise" # advertise or announce
+  service-metadata-topic: "ztalab_provider_metadata" # advertise or announce

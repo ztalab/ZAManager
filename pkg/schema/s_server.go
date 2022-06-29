@@ -4,6 +4,8 @@ type ServerType string
 
 const ServerTypeProvider ServerType = "provider"
 
+const FullNode ServerType = "fullnode"
+
 type ServerInfo struct {
 	PeerId   string     `json:"peer_id"`
 	Addr     string     `json:"addr"`

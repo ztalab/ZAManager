@@ -6,6 +6,9 @@ import (
 	"encoding/json"
 	"net"
 	"regexp"
+	"strings"
+
+	"github.com/go-resty/resty/v2"
 
 	"github.com/ztalab/ZAManager/app/v1/user/model/mmysql"
 
@@ -45,4 +48,29 @@ func NewMd5(str ...string) string {
 		h.Write([]byte(v))
 	}
 	return hex.EncodeToString(h.Sum(nil))
+}
+
+func GetCftrace() (*CfTrace, error) {
+	res, err := resty.New().R().Get("https://www.cloudflare.com/cdn-cgi/trace")
+	result := new(CfTrace)
+	sb := strings.Split(res.String(), "\n")
+	for _, item := range sb {
+		is := strings.Split(item, "=")
+		if is[0] == "ip" {
+			result.Ip = is[1]
+		}
+		if is[0] == "loc" {
+			result.Loc = is[1]
+		}
+		if is[0] == "colo" {
+			result.Colo = is[1]
+		}
+	}
+	return result, err
+}
+
+type CfTrace struct {
+	Ip   string `json:"ip"`
+	Loc  string `json:"loc"`
+	Colo string `json:"colo"`
 }

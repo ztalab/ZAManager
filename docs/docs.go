@@ -542,7 +542,7 @@ var doc = `{
                 "tags": [
                     "ZTA ControlPlane"
                 ],
-                "summary": "MachineOauth",
+                "summary": "MachineLongPoll",
                 "parameters": [
                     {
                         "type": "string",
@@ -559,6 +559,26 @@ var doc = `{
                         "required": true
                     }
                 ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Res"
+                        }
+                    }
+                }
+            }
+        },
+        "/node": {
+            "get": {
+                "description": "获取全部节点",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "ZTA Node"
+                ],
+                "summary": "ListNode",
                 "responses": {
                     "200": {
                         "description": "OK",

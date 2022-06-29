@@ -3,24 +3,24 @@ package mmysql
 import (
 	"database/sql/driver"
 	"encoding/json"
-
-	"gorm.io/gorm"
 )
 
 type Client struct {
-	gorm.Model
-	UserUUID string       `json:"user_uuid" gorm:"user_uuid"`
-	Name     string       `json:"name"`
-	ServerID uint64       `json:"server_id"`
-	UUID     string       `json:"uuid" gorm:"column:uuid"`
-	Port     int          `json:"port"`
-	Expire   int          `json:"expire"` // 过期时间：天
-	Relay    Relays       `json:"relay"`
-	Server   ServerAttr   `json:"server"`
-	Target   ClientTarget `json:"target"`
-	CaPem    string       `json:"ca_pem"`
-	CertPem  string       `json:"cert_pem"`
-	KeyPem   string       `json:"key_pem"`
+	ID        uint         `gorm:"primarykey"`
+	CreatedAt int64        `gorm:"autoCreateTime"`
+	UpdatedAt int64        `gorm:"autoUpdateTime"`
+	UserUUID  string       `json:"user_uuid" gorm:"user_uuid"`
+	Name      string       `json:"name"`
+	ServerID  uint64       `json:"server_id"`
+	UUID      string       `json:"uuid" gorm:"column:uuid"`
+	Port      int          `json:"port"`
+	Expire    int          `json:"expire"` // 过期时间：天
+	Relay     Relays       `json:"relay"`
+	Server    ServerAttr   `json:"server"`
+	Target    ClientTarget `json:"target"`
+	CaPem     string       `json:"ca_pem"`
+	CertPem   string       `json:"cert_pem"`
+	KeyPem    string       `json:"key_pem"`
 }
 
 func (Client) TableName() string {

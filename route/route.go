@@ -7,6 +7,7 @@ import (
 	"github.com/ztalab/ZAManager/pkg/confer"
 	"github.com/ztalab/ZAManager/route/access"
 	"github.com/ztalab/ZAManager/route/controlplane"
+	"github.com/ztalab/ZAManager/route/node"
 	"github.com/ztalab/ZAManager/route/system"
 	"github.com/ztalab/ZAManager/route/user"
 
@@ -24,6 +25,7 @@ func Api(engine *gin.Engine) {
 	RouteV1 := engine.Group(prefix + pconst.APIAPIV1URL)
 	{
 		access.APIAccess(RouteV1)
+		node.APINode(RouteV1)
 		controlplane.APIControlPlane(RouteV1)
 		system.APISystem(RouteV1)
 		user.APIUser(RouteV1)
