@@ -7,17 +7,17 @@ import (
 	"os"
 	"time"
 
-	"github.com/ztalab/ZAManager/app/v1/controlplane/model/mparam"
+	"github.com/ztalab/cloudslit/app/v1/controlplane/model/mparam"
 
 	"github.com/gin-gonic/contrib/sessions"
 
-	"github.com/ztalab/ZAManager/app/v1/controlplane/dao/redis"
+	"github.com/ztalab/cloudslit/app/v1/controlplane/dao/redis"
 
-	"github.com/ztalab/ZAManager/pkg/util"
+	"github.com/ztalab/cloudslit/pkg/util"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/confer"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/confer"
 )
 
 func GetLoginUrl(c *gin.Context, machine string) (code int, loginURL string) {

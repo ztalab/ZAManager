@@ -1,7 +1,7 @@
 package mparam
 
 import (
-	"github.com/ztalab/ZAManager/app/base/mdb"
+	"github.com/ztalab/cloudslit/app/base/mdb"
 )
 
 type ListNode struct {

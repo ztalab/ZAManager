@@ -3,17 +3,17 @@ package server
 import (
 	"time"
 
-	"github.com/ztalab/ZAManager/app/v1/node/service"
+	"github.com/ztalab/cloudslit/app/v1/node/service"
 
-	"github.com/ztalab/ZAManager/pkg/util/json"
+	"github.com/ztalab/cloudslit/pkg/util/json"
 
-	"github.com/ztalab/ZAManager/pkg/util"
+	"github.com/ztalab/cloudslit/pkg/util"
 
 	"github.com/sirupsen/logrus"
-	"github.com/ztalab/ZAManager/pkg/confer"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/p2p"
-	"github.com/ztalab/ZAManager/pkg/schema"
+	"github.com/ztalab/cloudslit/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/p2p"
+	"github.com/ztalab/cloudslit/pkg/schema"
 )
 
 func runP2P() error {

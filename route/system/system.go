@@ -2,7 +2,7 @@ package system
 
 import (
 	"github.com/gin-gonic/gin"
-	v1 "github.com/ztalab/ZAManager/app/v1/system/controller"
+	v1 "github.com/ztalab/cloudslit/app/v1/system/controller"
 )
 
 func APISystem(parentRoute gin.IRouter) {

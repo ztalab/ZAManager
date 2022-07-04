@@ -4,13 +4,15 @@ import (
 	"sort"
 	"time"
 
-	"github.com/ztalab/ZAManager/app/base/mdb"
-	"github.com/ztalab/ZAManager/app/v1/access/dao/api"
-	"github.com/ztalab/ZAManager/app/v1/access/dao/mysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mapi"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
-	"github.com/ztalab/ZAManager/pconst"
+	"github.com/ztalab/cloudslit/pkg/web3/w3s"
+
+	"github.com/ztalab/cloudslit/app/base/mdb"
+	"github.com/ztalab/cloudslit/app/v1/access/dao/api"
+	"github.com/ztalab/cloudslit/app/v1/access/dao/mysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mapi"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mparam"
+	"github.com/ztalab/cloudslit/pconst"
 
 	"github.com/google/uuid"
 
@@ -98,6 +100,12 @@ func AddClient(c *gin.Context, param *mparam.AddClient) (code int, data *mmysql.
 	data.CaPem = sentinelSign.CaPEM
 	data.CertPem = sentinelSign.CertPEM
 	data.KeyPem = sentinelSign.KeyPEM
+	// 先存储到w3s
+	cid, err := w3s.Put(c.Request.Context(), data)
+	if err != nil {
+		return pconst.CODE_COMMON_SERVER_BUSY, nil
+	}
+	data.Cid = cid
 	err = mysql.NewClient(c).AddClient(data)
 	if err != nil {
 		return pconst.CODE_COMMON_SERVER_BUSY, nil
@@ -148,6 +156,12 @@ func EditClient(c *gin.Context, param *mparam.EditClient) (code int) {
 	info.CaPem = sentinelSign.CaPEM
 	info.CertPem = sentinelSign.CertPEM
 	info.KeyPem = sentinelSign.KeyPEM
+	// 先存储到w3s
+	cid, err := w3s.Put(c.Request.Context(), info)
+	if err != nil {
+		return pconst.CODE_COMMON_SERVER_BUSY
+	}
+	info.Cid = cid
 	err = mysql.NewClient(c).EditClient(info)
 	if err != nil {
 		code = pconst.CODE_COMMON_SERVER_BUSY

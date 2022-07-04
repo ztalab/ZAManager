@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/confer"
 )
 
 func Welcome(c *gin.Context) {

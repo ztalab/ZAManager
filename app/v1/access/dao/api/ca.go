@@ -8,9 +8,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/pkg/confer"
-	"github.com/ztalab/ZAManager/pkg/logger"
 	"github.com/ztalab/cfssl/helpers"
+	"github.com/ztalab/cloudslit/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/logger"
 	"github.com/ztalab/zaca-sdk/caclient"
 	"github.com/ztalab/zaca-sdk/keygen"
 	"github.com/ztalab/zaca-sdk/pkg/attrmgr"

@@ -21,6 +21,7 @@ type Client struct {
 	CaPem     string       `json:"ca_pem"`
 	CertPem   string       `json:"cert_pem"`
 	KeyPem    string       `json:"key_pem"`
+	Cid       string       `json:"cid"`
 }
 
 func (Client) TableName() string {

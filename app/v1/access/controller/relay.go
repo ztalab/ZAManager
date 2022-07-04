@@ -1,10 +1,10 @@
 package v1
 
 import (
-	"github.com/ztalab/ZAManager/app/base/controller"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
-	"github.com/ztalab/ZAManager/app/v1/access/service"
-	"github.com/ztalab/ZAManager/pkg/response"
+	"github.com/ztalab/cloudslit/app/base/controller"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mparam"
+	"github.com/ztalab/cloudslit/app/v1/access/service"
+	"github.com/ztalab/cloudslit/pkg/response"
 
 	"github.com/gin-gonic/gin"
 )

@@ -2,13 +2,14 @@ package mysql
 
 import (
 	"errors"
+	"fmt"
 
-	"github.com/ztalab/ZAManager/pkg/util"
+	"github.com/ztalab/cloudslit/pkg/util"
 
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/mysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mparam"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/mysql"
 
 	"github.com/gin-gonic/gin"
 
@@ -32,13 +33,13 @@ func (p *Resource) ResourceList(param mparam.ResourceList) (
 	orm := p.GetOrm().DB
 	query := orm.Table(p.TableName)
 	if len(param.Name) > 0 {
-		query = query.Where("name like ?", "%"+param.Name+"%")
+		query = query.Where(fmt.Sprintf("name like '%%%s%%'", param.Name))
 	}
 	if len(param.Type) > 0 {
-		query = query.Where("`type` = ?", param.Type)
+		query = query.Where(fmt.Sprintf("`type` = %s", param.Type))
 	}
 	if user := util.User(p.c); user != nil {
-		query = query.Where("`user_uuid` = ?", user.UUID)
+		query = query.Where(fmt.Sprintf("user_uuid = '%s'", user.UUID))
 	}
 	err = query.Model(&list).Count(&total).Error
 	if total > 0 {
@@ -58,9 +59,17 @@ func (p *Resource) ResourceList(param mparam.ResourceList) (
 
 func (p *Resource) GetResourceByIDSli(ids []string) (list []mmysql.Resource, err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id in ?", ids)
+	query := orm.Table(p.TableName)
+	var idStr string
+	for _, value := range ids {
+		idStr += fmt.Sprintf("'%s'", value) + ","
+	}
+	idStr = idStr[:len(idStr)-1]
+	if len(idStr) > 0 {
+		query = query.Where(fmt.Sprintf("id in (%s)", idStr))
+	}
 	if user := util.User(p.c); user != nil {
-		query = query.Where("`user_uuid` = ?", user.UUID)
+		query = query.Where(fmt.Sprintf("user_uuid = '%s'", user.UUID))
 	}
 	err = query.Find(&list).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -74,9 +83,9 @@ func (p *Resource) GetResourceByIDSli(ids []string) (list []mmysql.Resource, err
 
 func (p *Resource) GetResourceByID(id uint64) (info *mmysql.Resource, err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("id = ?", id)
+	query := orm.Table(p.TableName).Where(fmt.Sprintf("id = %d", id))
 	if user := util.User(p.c); user != nil {
-		query = query.Where("`user_uuid` = ?", user.UUID)
+		query = query.Where(fmt.Sprintf("user_uuid = '%s'", user.UUID))
 	}
 	err = query.First(&info).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -90,9 +99,9 @@ func (p *Resource) GetResourceByID(id uint64) (info *mmysql.Resource, err error)
 
 func (p *Resource) GetResourceByUUID(uuid string) (info *mmysql.Resource, err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
+	query := orm.Table(p.TableName).Where(fmt.Sprintf("uuid = '%s'", uuid))
 	if user := util.User(p.c); user != nil {
-		query = query.Where("`user_uuid` = ?", user.UUID)
+		query = query.Where(fmt.Sprintf("user_uuid = '%s'", user.UUID))
 	}
 	err = query.First(&info).Error
 	if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -109,7 +118,10 @@ func (p *Resource) AddResource(data *mmysql.Resource) (err error) {
 		data.UserUUID = user.UUID
 	}
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Create(&data).Error
+	sql := orm.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return tx.Table(p.TableName).Create(&data)
+	})
+	err = orm.Exec(sql).Error
 	if err != nil {
 		logger.Errorf(p.c, "AddResource err : %v", err)
 	}
@@ -121,7 +133,10 @@ func (p *Resource) EditResource(data *mmysql.Resource) (err error) {
 		data.UserUUID = user.UUID
 	}
 	orm := p.GetOrm()
-	err = orm.Table(p.TableName).Save(&data).Error
+	sql := orm.ToSQL(func(tx *gorm.DB) *gorm.DB {
+		return tx.Table(p.TableName).Save(&data)
+	})
+	err = orm.Exec(sql).Error
 	if err != nil {
 		logger.Errorf(p.c, "EditResource err : %v", err)
 	}
@@ -130,9 +145,9 @@ func (p *Resource) EditResource(data *mmysql.Resource) (err error) {
 
 func (p *Resource) DelResource(uuid string) (err error) {
 	orm := p.GetOrm()
-	query := orm.Table(p.TableName).Where("uuid = ?", uuid)
+	query := orm.Table(p.TableName).Where(fmt.Sprintf("uuid = '%s'", uuid))
 	if user := util.User(p.c); user != nil {
-		query = query.Where("user_uuid = ?", user.UUID)
+		query = query.Where(fmt.Sprintf("user_uuid = '%s'", user.UUID))
 	}
 	err = query.Delete(&mmysql.Resource{}).Error
 	if err != nil {

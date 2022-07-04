@@ -10,7 +10,7 @@ import (
 
 	"github.com/go-resty/resty/v2"
 
-	"github.com/ztalab/ZAManager/app/v1/user/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/user/model/mmysql"
 
 	"github.com/gin-gonic/gin"
 )

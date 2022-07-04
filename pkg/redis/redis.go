@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/ztalab/ZAManager/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/confer"
 )
 
 var Client *redis.Client

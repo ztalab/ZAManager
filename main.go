@@ -4,9 +4,9 @@ import (
 	"os"
 
 	"github.com/urfave/cli"
-	_ "github.com/ztalab/ZAManager/docs"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/server"
+	_ "github.com/ztalab/cloudslit/docs"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/server"
 	_ "go.uber.org/automaxprocs"
 )
 

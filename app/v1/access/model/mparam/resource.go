@@ -1,6 +1,6 @@
 package mparam
 
-import "github.com/ztalab/ZAManager/app/base/mdb"
+import "github.com/ztalab/cloudslit/app/base/mdb"
 
 type ResourceList struct {
 	mdb.Paginate

@@ -1,8 +1,8 @@
 package access
 
 import (
-	v1 "github.com/ztalab/ZAManager/app/v1/access/controller"
-	"github.com/ztalab/ZAManager/pkg/middle"
+	v1 "github.com/ztalab/cloudslit/app/v1/access/controller"
+	"github.com/ztalab/cloudslit/pkg/middle"
 
 	"github.com/gin-gonic/gin"
 )

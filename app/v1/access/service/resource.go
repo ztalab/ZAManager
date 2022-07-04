@@ -1,11 +1,11 @@
 package service
 
 import (
-	"github.com/ztalab/ZAManager/app/v1/access/dao/mysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mapi"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
-	"github.com/ztalab/ZAManager/pconst"
+	"github.com/ztalab/cloudslit/app/v1/access/dao/mysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mapi"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mparam"
+	"github.com/ztalab/cloudslit/pconst"
 
 	"github.com/google/uuid"
 
@@ -25,8 +25,8 @@ func ResourceList(c *gin.Context, param mparam.ResourceList) (code int, Resource
 	return
 }
 
-func AddResource(c *gin.Context, param *mparam.AddResource) (code int, data *mmysql.Resource) {
-	data = &mmysql.Resource{
+func AddResource(c *gin.Context, param *mparam.AddResource) (code int) {
+	data := &mmysql.Resource{
 		Name: param.Name,
 		UUID: uuid.NewString(),
 		Type: param.Type,
@@ -35,7 +35,7 @@ func AddResource(c *gin.Context, param *mparam.AddResource) (code int, data *mmy
 	}
 	err := mysql.NewResource(c).AddResource(data)
 	if err != nil {
-		return pconst.CODE_COMMON_SERVER_BUSY, nil
+		return pconst.CODE_COMMON_SERVER_BUSY
 	}
 	return
 }

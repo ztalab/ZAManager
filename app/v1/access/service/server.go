@@ -4,12 +4,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ztalab/ZAManager/app/v1/access/dao/api"
-	"github.com/ztalab/ZAManager/app/v1/access/dao/mysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mapi"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mparam"
-	"github.com/ztalab/ZAManager/pconst"
+	"github.com/ztalab/cloudslit/app/v1/access/dao/api"
+	"github.com/ztalab/cloudslit/app/v1/access/dao/mysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mapi"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mparam"
+	"github.com/ztalab/cloudslit/pconst"
 
 	"github.com/google/uuid"
 

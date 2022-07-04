@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ztalab/ZAManager/app/v1/node/model/mparam"
+	"github.com/ztalab/cloudslit/app/v1/node/model/mparam"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/app/v1/node/model/mmysql"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/mysql"
+	"github.com/ztalab/cloudslit/app/v1/node/model/mmysql"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/mysql"
 	"gorm.io/gorm"
 )
 
@@ -57,7 +57,7 @@ func (p *Node) ListNode(param mparam.ListNode) (total int64, list []mmysql.Node,
 	if total > 0 {
 		offset := param.GetOffset()
 		err = query.Limit(param.LimitNum).Offset(offset).
-			Order("UpdatedAt desc").
+			Order("updated_at desc").
 			Find(&list).Error
 	}
 	if errors.Is(err, gorm.ErrRecordNotFound) {
@@ -111,7 +111,6 @@ func (p *Node) EditNode(data *mmysql.Node) (err error) {
 func (p *Node) DelNode(id uint64) (err error) {
 	orm := p.GetOrm()
 	err = orm.Where(fmt.Sprintf("id = %d", id)).Delete(&mmysql.Node{}).Error
-	//err = orm.Delete(&mmysql.Node{}, id).Error
 	if err != nil {
 		logger.Errorf(p.c, "DelNode err : %v", err)
 	}

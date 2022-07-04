@@ -12,7 +12,7 @@ import (
 
 	"github.com/DeanThompson/ginpprof"
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/confer"
 )
 
 type OnShutdownF struct {

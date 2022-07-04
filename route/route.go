@@ -1,15 +1,15 @@
 package route
 
 import (
-	"github.com/ztalab/ZAManager/app/base/controller"
-	v1 "github.com/ztalab/ZAManager/app/v1/controlplane/controller"
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/confer"
-	"github.com/ztalab/ZAManager/route/access"
-	"github.com/ztalab/ZAManager/route/controlplane"
-	"github.com/ztalab/ZAManager/route/node"
-	"github.com/ztalab/ZAManager/route/system"
-	"github.com/ztalab/ZAManager/route/user"
+	"github.com/ztalab/cloudslit/app/base/controller"
+	v1 "github.com/ztalab/cloudslit/app/v1/controlplane/controller"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/confer"
+	"github.com/ztalab/cloudslit/route/access"
+	"github.com/ztalab/cloudslit/route/controlplane"
+	"github.com/ztalab/cloudslit/route/node"
+	"github.com/ztalab/cloudslit/route/system"
+	"github.com/ztalab/cloudslit/route/user"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,12 +1,12 @@
 package service
 
 import (
-	"github.com/ztalab/ZAManager/app/v1/node/dao/mysql"
-	"github.com/ztalab/ZAManager/app/v1/node/model/mapi"
-	"github.com/ztalab/ZAManager/app/v1/node/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/node/model/mparam"
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/schema"
+	"github.com/ztalab/cloudslit/app/v1/node/dao/mysql"
+	"github.com/ztalab/cloudslit/app/v1/node/model/mapi"
+	"github.com/ztalab/cloudslit/app/v1/node/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/node/model/mparam"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/schema"
 
 	"github.com/gin-gonic/gin"
 )

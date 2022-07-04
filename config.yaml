@@ -1,7 +1,7 @@
 #APP ENV
 app:
   env: "release" # dev,release
-  sysname: "ZAManager"
+  sysname: "cloudslit"
   port: 8080
   domain: DOMAIN
 
@@ -17,26 +17,24 @@ mysql:
     pool-wait-count: 1000
     pool-wai-timeout: 30
   write:
-    host: "ZTA_MYSQL_HOST"
-    port: 3306
-    user: "ZTA_MYSQL_USER"
-    password: "ZTA_MYSQL_PASSWORD"
-
-#Redis
-redis:
-  addr: "ZTA_REDIS_ADDR"
-
-#CA
-ca:
-  base-url: "ZTA_CA_BASE_URL"
-  sign-url: "ZTA_CA_SIGN_URL"
-  ocsp-url: "ZTA_CA_OCSP_URL"
-  version: "/api/v1"
-  auth-key: "ZTA_CA_AUTH_KEY"
+    host: "CS_MYSQL_HOST"
+    port: 23306
+    user: "CS_MYSQL_USER"
+    password: "CS_MYSQL_PASSWORD"
 
 p2p:
   enable: true
-  accout: "ZTA_ACCOUNT"
+  account: "CS_ACCOUNT"
   service-discovery-id: "ztalab/provider"
   service-discovery-mode: "advertise" # advertise or announce
   service-metadata-topic: "ztalab_provider_metadata" # advertise or announce
+
+web3:
+  private-key: "CS_PRIVATE_KEY"
+  contract:
+    token: "CS_CONTRACT_TOKEN"
+  w3s:
+    token: "CS_W3S_TOKEN"
+  eth:
+    url: "CS_ETH_URL"
+    projectid: "CS_ETH_PROJECTID"

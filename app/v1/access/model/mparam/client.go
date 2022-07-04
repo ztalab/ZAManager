@@ -1,14 +1,14 @@
 package mparam
 
 import (
-	"github.com/ztalab/ZAManager/app/base/mdb"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/base/mdb"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
 )
 
 type ClientList struct {
 	mdb.Paginate
 	Name     string `json:"name" form:"name"`
-	ServerID int    `json:"server_id"`
+	ServerID int    `json:"server_id" form:"server_id"`
 }
 
 type AddClient struct {

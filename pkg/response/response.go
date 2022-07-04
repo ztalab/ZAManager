@@ -5,8 +5,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/util"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/util"
 
 	"github.com/gin-gonic/gin"
 )

@@ -7,10 +7,10 @@ import (
 
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/app/v1/user/service"
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/response"
-	"github.com/ztalab/ZAManager/pkg/util"
+	"github.com/ztalab/cloudslit/app/v1/user/service"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/response"
+	"github.com/ztalab/cloudslit/pkg/util"
 )
 
 func Login(c *gin.Context) {

@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/app/v1/system/model/mmysql"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/mysql"
+	"github.com/ztalab/cloudslit/app/v1/system/model/mmysql"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/mysql"
 	"gorm.io/gorm"
 )
 

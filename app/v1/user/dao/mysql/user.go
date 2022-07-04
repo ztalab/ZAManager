@@ -3,9 +3,9 @@ package mysql
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"github.com/ztalab/ZAManager/app/v1/user/model/mmysql"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/mysql"
+	"github.com/ztalab/cloudslit/app/v1/user/model/mmysql"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/mysql"
 )
 
 type User struct {

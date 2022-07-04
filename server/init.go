@@ -2,10 +2,12 @@ package server
 
 import (
 	"github.com/urfave/cli"
-	"github.com/ztalab/ZAManager/pkg/confer"
-	"github.com/ztalab/ZAManager/pkg/logger"
-	"github.com/ztalab/ZAManager/pkg/mysql"
-	"github.com/ztalab/ZAManager/pkg/redis"
+	"github.com/ztalab/cloudslit/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/logger"
+	"github.com/ztalab/cloudslit/pkg/mysql"
+	"github.com/ztalab/cloudslit/pkg/redis"
+	"github.com/ztalab/cloudslit/pkg/web3/eth"
+	"github.com/ztalab/cloudslit/pkg/web3/w3s"
 )
 
 func InitService(c *cli.Context) (err error) {
@@ -23,6 +25,12 @@ func InitService(c *cli.Context) (err error) {
 		return
 	}
 	if err = mysql.Init(&cfg.Mysql); err != nil {
+		return
+	}
+	if err = w3s.Init(&cfg.Web3); err != nil {
+		return
+	}
+	if err = eth.Init(&cfg.Web3); err != nil {
 		return
 	}
 	//if err = mysql.SqlMigrate(); err != nil {

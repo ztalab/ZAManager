@@ -3,7 +3,7 @@ package middle
 import (
 	"github.com/gin-gonic/contrib/sessions"
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/pkg/confer"
+	"github.com/ztalab/cloudslit/pkg/confer"
 )
 
 func Session(name string, cfg *confer.Redis) gin.HandlerFunc {

@@ -2,10 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/app/base/controller"
-	"github.com/ztalab/ZAManager/app/v1/controlplane/model/mparam"
-	"github.com/ztalab/ZAManager/app/v1/controlplane/service"
-	"github.com/ztalab/ZAManager/pkg/response"
+	"github.com/ztalab/cloudslit/app/base/controller"
+	"github.com/ztalab/cloudslit/app/v1/controlplane/model/mparam"
+	"github.com/ztalab/cloudslit/app/v1/controlplane/service"
+	"github.com/ztalab/cloudslit/pkg/response"
 )
 
 // @Summary LoginUrl

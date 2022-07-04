@@ -3,9 +3,9 @@ package p2p
 import (
 	"sync"
 
-	"github.com/ztalab/ZAManager/pkg/util/json"
+	"github.com/ztalab/cloudslit/pkg/util/json"
 
-	"github.com/ztalab/ZAManager/pkg/schema"
+	"github.com/ztalab/cloudslit/pkg/schema"
 )
 
 var server = &Server{

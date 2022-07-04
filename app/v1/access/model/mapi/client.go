@@ -1,8 +1,8 @@
 package mapi
 
 import (
-	"github.com/ztalab/ZAManager/app/base/mapi"
-	"github.com/ztalab/ZAManager/app/v1/access/model/mmysql"
+	"github.com/ztalab/cloudslit/app/base/mapi"
+	"github.com/ztalab/cloudslit/app/v1/access/model/mmysql"
 )
 
 type ClientList struct {

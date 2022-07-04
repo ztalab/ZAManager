@@ -1,6 +1,7 @@
 package confer
 
 import (
+	"fmt"
 	"sync"
 	"time"
 )
@@ -12,6 +13,7 @@ type ServerConfig struct {
 	Mysql Mysql `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
 	CA    CA    `mapstructure:"ca" json:"ca" yaml:"ca"`
 	P2P   P2P   `mapstructure:"p2p" json:"p2p" yaml:"p2p"`
+	Web3  Web3  `mapstructure:"w3s" json:"w3s" yaml:"w3s"`
 	sync.RWMutex
 }
 
@@ -62,6 +64,24 @@ type P2P struct {
 	ServiceDiscoveryID   string `mapstructure:"service-discovery-id" json:"service_discovery_id" yaml:"service-discovery-id"`
 	ServiceDiscoveryMode string `mapstructure:"service-discovery-mode" json:"service_discovery_mode" yaml:"service-discovery-mode"`
 	ServiceMetadataTopic string `mapstructure:"service-metadata-topic" json:"service_metadata_topic" yaml:"service-metadata-topic"`
+}
+
+type Web3 struct {
+	PrivateKey string `mapstructure:"private-key" json:"private_key" yaml:"private-key"`
+	Contract   struct {
+		Token string `mapstructure:"token" json:"token" yaml:"token"`
+	} `mapstructure:"contract" json:"contract" yaml:"contract"`
+	W3S struct {
+		Token string `mapstructure:"token" json:"token" yaml:"token"`
+	} `mapstructure:"w3s" json:"w3s" yaml:"w3s"`
+	ETH struct {
+		URL       string `mapstructure:"url" json:"url" yaml:"url"`
+		ProjectID string `mapstructure:"projectid" json:"projectid" yaml:"projectid"`
+	} `mapstructure:"eth" json:"eth" yaml:"eth"`
+}
+
+func (w *Web3) EthAddress() string {
+	return fmt.Sprintf("%s/%s", w.ETH.URL, w.ETH.ProjectID)
 }
 
 type Log struct {

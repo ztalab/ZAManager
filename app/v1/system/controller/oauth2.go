@@ -4,12 +4,12 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/ztalab/ZAManager/app/base/controller"
-	"github.com/ztalab/ZAManager/app/v1/system/model/mmysql"
-	"github.com/ztalab/ZAManager/app/v1/system/model/mparam"
-	"github.com/ztalab/ZAManager/app/v1/system/service"
-	"github.com/ztalab/ZAManager/pconst"
-	"github.com/ztalab/ZAManager/pkg/response"
+	"github.com/ztalab/cloudslit/app/base/controller"
+	"github.com/ztalab/cloudslit/app/v1/system/model/mmysql"
+	"github.com/ztalab/cloudslit/app/v1/system/model/mparam"
+	"github.com/ztalab/cloudslit/app/v1/system/service"
+	"github.com/ztalab/cloudslit/pconst"
+	"github.com/ztalab/cloudslit/pkg/response"
 )
 
 // @Summary ListOauth2

@@ -1,6 +1,6 @@
 package mparam
 
-import "github.com/ztalab/ZAManager/app/v1/system/model/mmysql"
+import "github.com/ztalab/cloudslit/app/v1/system/model/mmysql"
 
 type EditOauth2 struct {
 	ID           int64         `json:"id" binding:"required"`
