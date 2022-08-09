@@ -3,7 +3,6 @@ package confer
 import (
 	"os"
 	"sync"
-	"time"
 
 	"gopkg.in/yaml.v3"
 )
@@ -36,12 +35,12 @@ type Mysql struct {
 }
 
 type DBPool struct {
-	PoolMinCap      int           `mapstructure:"pool-min-cap" json:"poolMinCap" yaml:"pool-min-cap"`
-	PoolExCap       int           `mapstructure:"pool-ex-cap" json:"poolExCap" yaml:"pool-ex-cap"`
-	PoolMaxCap      int           `mapstructure:"pool-max-cap" json:"pool-max-cap" yaml:"pool-max-cap"`
-	PoolIdleTimeout time.Duration `mapstructure:"pool-idle-timeout" json:"poolIdleTimeout" yaml:"pool-idle-timeout"`
-	PoolWaitCount   int64         `mapstructure:"pool-wait-count" json:"poolWaitCount" yaml:"pool-wait-count"`
-	PoolWaitTimeout time.Duration `mapstructure:"pool-wai-timeout" json:"poolWaitTimeout" yaml:"pool-wai-timeout"`
+	PoolMinCap      int   `mapstructure:"pool-min-cap" json:"poolMinCap" yaml:"pool-min-cap"`
+	PoolExCap       int   `mapstructure:"pool-ex-cap" json:"poolExCap" yaml:"pool-ex-cap"`
+	PoolMaxCap      int   `mapstructure:"pool-max-cap" json:"pool-max-cap" yaml:"pool-max-cap"`
+	PoolIdleTimeout int   `mapstructure:"pool-idle-timeout" json:"poolIdleTimeout" yaml:"pool-idle-timeout"`
+	PoolWaitCount   int64 `mapstructure:"pool-wait-count" json:"poolWaitCount" yaml:"pool-wait-count"`
+	PoolWaitTimeout int   `mapstructure:"pool-wai-timeout" json:"poolWaitTimeout" yaml:"pool-wai-timeout"`
 }
 
 type DBBase struct {

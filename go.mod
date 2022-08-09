@@ -17,8 +17,8 @@ require (
 	github.com/swaggo/gin-swagger v1.3.0
 	github.com/swaggo/swag v1.7.0
 	github.com/urfave/cli v1.22.7
-	github.com/ztalab/cfssl v0.0.3
-	github.com/ztalab/zaca-sdk v0.0.2
+	github.com/ztalab/cfssl v0.0.5
+	github.com/ztalab/zaca-sdk v0.0.3
 	go.uber.org/automaxprocs v1.5.1
 	go.uber.org/zap v1.21.0
 	golang.org/x/oauth2 v0.0.0-20220411215720-9780585627b5
@@ -115,11 +115,11 @@ require (
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20201229170055-e5319fda7802 // indirect
 	github.com/transparency-dev/merkle v0.0.1 // indirect
 	github.com/ugorji/go/codec v1.1.13 // indirect
-	github.com/weppos/publicsuffix-go v0.13.0 // indirect
+	github.com/weppos/publicsuffix-go v0.15.1-0.20220724114530-e087fba66a37 // indirect
 	github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 // indirect
 	github.com/zeebo/errs v1.2.2 // indirect
-	github.com/zmap/zcrypto v0.0.0-20200911161511-43ff0ea04f21 // indirect
-	github.com/zmap/zlint/v2 v2.2.1 // indirect
+	github.com/zmap/zcrypto v0.0.0-20220803033029-557f3e4940be // indirect
+	github.com/zmap/zlint/v3 v3.3.1 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
 	go.etcd.io/etcd/api/v3 v3.5.4 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.4 // indirect

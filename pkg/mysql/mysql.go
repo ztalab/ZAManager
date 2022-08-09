@@ -60,18 +60,18 @@ func initMysqlPool(cfg *confer.Mysql, isRead bool) (err error) {
 			err = errors.New(fmt.Sprintf("initMysqlPool isread:%v ,error: %v", isRead, err))
 			return err
 		}
-		sqlDB.SetMaxIdleConns(cfg.Pool.PoolMinCap)                       // 空闲链接
-		sqlDB.SetMaxOpenConns(cfg.Pool.PoolMaxCap)                       // 最大链接
-		sqlDB.SetConnMaxLifetime(cfg.Pool.PoolIdleTimeout * time.Second) // 最大空闲时间
+		sqlDB.SetMaxIdleConns(cfg.Pool.PoolMinCap)                                      // 空闲链接
+		sqlDB.SetMaxOpenConns(cfg.Pool.PoolMaxCap)                                      // 最大链接
+		sqlDB.SetConnMaxLifetime(time.Duration(cfg.Pool.PoolIdleTimeout) * time.Second) // 最大空闲时间
 	} else {
 		sqlDB, err := mysqlWritePool.DB.DB()
 		if err != nil {
 			err = errors.New(fmt.Sprintf("initMysqlPool isread:%v ,error: %v", isRead, err))
 			return err
 		}
-		sqlDB.SetMaxIdleConns(cfg.Pool.PoolMinCap)                       // 空闲链接
-		sqlDB.SetMaxOpenConns(cfg.Pool.PoolMaxCap)                       // 最大链接
-		sqlDB.SetConnMaxLifetime(cfg.Pool.PoolIdleTimeout * time.Second) // 最大空闲时间
+		sqlDB.SetMaxIdleConns(cfg.Pool.PoolMinCap)                                      // 空闲链接
+		sqlDB.SetMaxOpenConns(cfg.Pool.PoolMaxCap)                                      // 最大链接
+		sqlDB.SetConnMaxLifetime(time.Duration(cfg.Pool.PoolIdleTimeout) * time.Second) // 最大空闲时间
 	}
 	return
 }
