@@ -1,9 +1,15 @@
 package confer
 
 import (
+	"os"
 	"sync"
 	"time"
+
+	"gopkg.in/yaml.v3"
 )
+
+var globalConfig *ServerConfig
+var mutex sync.RWMutex
 
 type ServerConfig struct {
 	App   App   `mapstructure:"app" json:"app" yaml:"app"`
@@ -65,4 +71,42 @@ type Log struct {
 	MaxSize     int    `mapstructure:"max-size" json:"max_size" yaml:"max-size"` // megabytes
 	MaxAge      int    `mapstructure:"max-age" json:"max_age" yaml:"max-age"`    // days
 	MaxBackups  int    `mapstructure:"max-backups" json:"max_backups" yaml:"max-backups"`
+}
+
+func Init(configURL string) (err error) {
+	f, err := os.Open(configURL)
+	if err != nil {
+		return
+	}
+	if err = yaml.NewDecoder(f).Decode(&globalConfig); err != nil {
+		return
+	}
+	handleConfig(globalConfig)
+	return
+}
+
+func handleConfig(config *ServerConfig) {
+	config.replaceByEnv(&config.Redis.Addr)
+	config.replaceByEnv(&config.Mysql.Write.Host)
+	config.replaceByEnv(&config.Mysql.Write.User)
+	config.replaceByEnv(&config.Mysql.Write.Password)
+	config.replaceByEnv(&config.CA.BaseURL)
+	config.replaceByEnv(&config.CA.SignURL)
+	config.replaceByEnv(&config.CA.OcspURL)
+	config.replaceByEnv(&config.CA.AuthKey)
+	config.Mysql.Write.DBName = globalConfig.Mysql.DBName
+	config.Mysql.Write.Prefix = globalConfig.Mysql.Prefix
+	return
+}
+
+func (*ServerConfig) replaceByEnv(conf *string) {
+	if s := os.Getenv(*conf); len(s) > 0 {
+		*conf = s
+	}
+}
+
+func GlobalConfig() *ServerConfig {
+	mutex.RLock()
+	defer mutex.RUnlock()
+	return globalConfig
 }
